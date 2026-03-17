@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heat Resilience — Impact Calculator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0f;color:#e5e5e5;min-height:100vh;padding:20px}
+.container{max-width:800px;margin:0 auto}
+h1{font-size:24px;font-weight:800;text-align:center;margin-bottom:4px;background:linear-gradient(135deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{text-align:center;color:#9ca3af;font-size:13px;margin-bottom:30px}
+.card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:24px;margin-bottom:16px}
+.card h2{font-size:14px;color:#9ca3af;font-weight:600;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px}
+.slider-row{margin-bottom:20px}
+.slider-label{display:flex;justify-content:space-between;margin-bottom:6px}
+.slider-label span{font-size:13px;color:#d1d5db}
+.slider-label .val{font-size:15px;font-weight:700;color:#a78bfa}
+input[type=range]{width:100%;height:6px;-webkit-appearance:none;background:#1f2937;border-radius:3px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#7c3aed;cursor:pointer;border:2px solid #a78bfa}
+.outputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.out-card{background:#1a1a2e;border:1px solid #2d2a4a;border-radius:12px;padding:16px;text-align:center}
+.out-val{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
+.out-label{font-size:12px;color:#9ca3af}
+.note{font-size:11px;color:#6b7280;text-align:center;margin-top:20px;line-height:1.6}
+.src{font-size:10px;color:#4b5563;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🌡️ Impact Calculator</h1>
+<p class="sub">Heat Resilience Champions — Project Impact by Numbers</p>
+
+<div class="card">
+<h2>Inputs — Adjust Sliders</h2>
+<div class="slider-row">
+<div class="slider-label"><span>Champions Trained</span><span class="val" id="v1">500</span></div>
+<input type="range" id="s1" min="50" max="10000" step="50" value="500" oninput="calc()">
+</div>
+<div class="slider-row">
+<div class="slider-label"><span>Cool Roof m² per Champion</span><span class="val" id="v2">80</span></div>
+<input type="range" id="s2" min="20" max="200" step="10" value="80" oninput="calc()">
+</div>
+<div class="slider-row">
+<div class="slider-label"><span>CO₂ Avoided per m²/year (kg)</span><span class="val" id="v3">2.5</span></div>
+<input type="range" id="s3" min="1" max="5" step="0.1" value="2.5" oninput="calc()">
+</div>
+<div class="slider-row">
+<div class="slider-label"><span>People Reached per Champion</span><span class="val" id="v4">50</span></div>
+<input type="range" id="s4" min="10" max="200" step="5" value="50" oninput="calc()">
+</div>
+<div class="slider-row">
+<div class="slider-label"><span>Cost per Champion ($)</span><span class="val" id="v5">$150</span></div>
+<input type="range" id="s5" min="50" max="500" step="10" value="150" oninput="calc()">
+</div>
+<div class="slider-row">
+<div class="slider-label"><span>Deployment Rate (%)</span><span class="val" id="v6">65%</span></div>
+<input type="range" id="s6" min="30" max="90" step="5" value="65" oninput="calc()">
+</div>
+</div>
+
+<div class="card">
+<h2>Projected Impact</h2>
+<div class="outputs">
+<div class="out-card"><div class="out-val" id="o1">—</div><div class="out-label">Tonnes CO₂ Avoided / Year</div></div>
+<div class="out-card"><div class="out-val" id="o2">—</div><div class="out-label">People Directly Protected</div></div>
+<div class="out-card"><div class="out-val" id="o3">—</div><div class="out-label">Cost per Tonne CO₂</div></div>
+<div class="out-card"><div class="out-val" id="o4">—</div><div class="out-label">Total Cool Roof m²</div></div>
+<div class="out-card"><div class="out-val" id="o5">—</div><div class="out-label">Total Programme Cost</div></div>
+<div class="out-card"><div class="out-val" id="o6">—</div><div class="out-label">Cascade-Trained in First Aid</div></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Assumptions & Sources</h2>
+<p class="src">CO₂ factor: EPA Kansas City analysis (269t from 65K m²) ≈ 4.1 kg/m²/yr; conservative default 2.5 kg — Peer-reviewed range 1–5 kg</p>
+<p class="src">Deployment rate: Ahmedabad HAP reported 60–70% community health worker activation — Default 65%</p>
+<p class="src">Reach per champion: ASHA worker model (India) — 1 worker per 50–100 community members</p>
+<p class="src">Cascade multiplier: 5× from Day 2 Heat Buddy system design</p>
+<p class="src">Sources: EPA, Project Drawdown, Ahmedabad HAP (Hess et al.), ILO, WHO</p>
+</div>
+
+<p class="note">Globe From Home · Heat Resilience Champions · Impact Measurement Framework<br>Data for pre-discussion and pilot planning purposes. All projections are conservative estimates.</p>
+</div>
+
+<script>
+function fmt(n){if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return n.toLocaleString()}
+function calc(){
+  var c=+document.getElementById('s1').value;
+  var m=+document.getElementById('s2').value;
+  var co2=+document.getElementById('s3').value;
+  var r=+document.getElementById('s4').value;
+  var cost=+document.getElementById('s5').value;
+  var d=+document.getElementById('s6').value/100;
+  document.getElementById('v1').textContent=c.toLocaleString();
+  document.getElementById('v2').textContent=m;
+  document.getElementById('v3').textContent=co2;
+  document.getElementById('v4').textContent=r;
+  document.getElementById('v5').textContent='$'+cost;
+  document.getElementById('v6').textContent=Math.round(d*100)+'%';
+  var active=c*d;
+  var tonnes=active*m*co2/1000;
+  var people=active*r;
+  var cpt=tonnes>0?(c*cost)/tonnes:0;
+  var totalm2=active*m;
+  var totalcost=c*cost;
+  var cascade=active*5;
+  document.getElementById('o1').textContent=fmt(Math.round(tonnes));
+  document.getElementById('o2').textContent=fmt(Math.round(people));
+  document.getElementById('o3').textContent='$'+Math.round(cpt);
+  document.getElementById('o4').textContent=fmt(Math.round(totalm2));
+  document.getElementById('o5').textContent='$'+fmt(Math.round(totalcost));
+  document.getElementById('o6').textContent=fmt(Math.round(cascade));
+}
+calc();
+</script>
+</body>
+</html>

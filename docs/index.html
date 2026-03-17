@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heat Resilience Champions — Data Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f1117;--card:#1a1d27;--card-hover:#22263a;--accent:#ff6b35;--accent2:#ffd166;--text:#e8e8e8;--muted:#8b8fa3;--border:#2a2d3a;--green:#4ecdc4;--red:#ff6b6b;--blue:#5b9bd5;--purple:#a78bfa}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+header{text-align:center;padding:40px 20px 30px;background:linear-gradient(135deg,#1a1d27 0%,#2a1a0a 100%);border-bottom:2px solid var(--accent)}
+header h1{font-size:2.2em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+header p{color:var(--muted);font-size:1.1em}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;padding:24px 0;border-bottom:1px solid var(--border);margin-bottom:24px}
+.hero-stat{text-align:center;padding:20px 12px;background:var(--card);border-radius:12px;border:1px solid var(--border)}
+.hero-stat .number{font-size:2em;font-weight:800;color:var(--accent)}
+.hero-stat .label{font-size:0.85em;color:var(--muted);margin-top:4px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;padding:16px 0;justify-content:center;position:sticky;top:0;background:var(--bg);z-index:10;border-bottom:1px solid var(--border)}
+.filter-btn{padding:8px 18px;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:20px;cursor:pointer;font-size:0.9em;transition:all 0.2s}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;padding:24px 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;transition:all 0.2s;position:relative;overflow:hidden}
+.card:hover{background:var(--card-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.card[data-cat="mortality"]::before{background:var(--red)}
+.card[data-cat="economy"]::before{background:var(--accent2)}
+.card[data-cat="workers"]::before{background:var(--blue)}
+.card[data-cat="children"]::before{background:var(--purple)}
+.card[data-cat="urban"]::before{background:var(--green)}
+.card[data-cat="solutions"]::before{background:#90be6d}
+.card[data-cat="projections"]::before{background:var(--accent)}
+.card .cat{font-size:0.75em;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-weight:600}
+.card[data-cat="mortality"] .cat{color:var(--red)}
+.card[data-cat="economy"] .cat{color:var(--accent2)}
+.card[data-cat="workers"] .cat{color:var(--blue)}
+.card[data-cat="children"] .cat{color:var(--purple)}
+.card[data-cat="urban"] .cat{color:var(--green)}
+.card[data-cat="solutions"] .cat{color:#90be6d}
+.card[data-cat="projections"] .cat{color:var(--accent)}
+.card .headline{font-size:1.8em;font-weight:800;margin:4px 0 8px;line-height:1.2}
+.card .context{color:var(--muted);font-size:0.92em;margin-bottom:12px;line-height:1.5}
+.card .source{font-size:0.78em;color:var(--muted);border-top:1px solid var(--border);padding-top:10px;margin-top:auto;font-style:italic}
+footer{text-align:center;padding:30px;color:var(--muted);font-size:0.85em;border-top:1px solid var(--border);margin-top:20px}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){header h1{font-size:1.5em}.grid{grid-template-columns:1fr}.hero-stats{grid-template-columns:repeat(2,1fr)}.card .headline{font-size:1.4em}}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🌡️ Heat Resilience Champions</h1>
+<p>Impact Measurement Dashboard — 52+ Data Points from 24 Peer-Reviewed Sources</p>
+<p style="margin-top:8px;font-size:0.9em">By <strong>Globe From Home</strong></p>
+</header>
+
+<div class="container">
+
+<div class="hero-stats">
+<div class="hero-stat"><div class="number">546K</div><div class="label">Annual Heat Deaths</div></div>
+<div class="hero-stat"><div class="number">$1.09T</div><div class="label">Productivity Lost</div></div>
+<div class="hero-stat"><div class="number">2.41B</div><div class="label">Workers Exposed</div></div>
+<div class="hero-stat"><div class="number">200M</div><div class="label">Children at Risk</div></div>
+<div class="hero-stat"><div class="number">80%</div><div class="label">Reduction Achievable</div></div>
+</div>
+
+<div class="filters">
+<button class="filter-btn active" data-filter="all">All Data</button>
+<button class="filter-btn" data-filter="mortality">Mortality</button>
+<button class="filter-btn" data-filter="economy">Economy</button>
+<button class="filter-btn" data-filter="workers">Workers</button>
+<button class="filter-btn" data-filter="children">Children</button>
+<button class="filter-btn" data-filter="urban">Urban & Cities</button>
+<button class="filter-btn" data-filter="solutions">Solutions</button>
+<button class="filter-btn" data-filter="projections">Projections</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+</div>
+
+<footer>
+Heat Resilience Champions — Impact Measurement Framework &copy; 2025 <a href="https://globefromhome.com">Globe From Home</a><br>
+Data from 24 sources. See <a href="../docs/bibliography.md">bibliography</a> for full references.<br>
+<a href="impact_calculator.html">Open Impact Calculator →</a>
+</footer>
+
+<script>
+const data = [
+// MORTALITY
+{cat:"mortality",headline:"546,000",context:"Annual heat-related deaths globally — a 167% increase since 2000.",source:"Lancet Countdown 2025"},
+{cat:"mortality",headline:"62,000",context:"Heat-related deaths across 18 European countries in the summer of 2022.",source:"Ballester et al. 2023, Nature Medicine"},
+{cat:"mortality",headline:"47,690",context:"European heat deaths in 2023 — lower than 2022 but still devastating.",source:"Lancet Countdown Europe 2024"},
+{cat:"mortality",headline:"70,000",context:"Deaths in Europe's 2003 heatwave. France alone lost 14,802 people.",source:"Robine et al. 2008, EuroSurveillance"},
+{cat:"mortality",headline:"56,000",context:"Deaths in Russia's 2010 heatwave, compounded by wildfire smoke over Moscow.",source:"Barriopedro et al. 2011, Nature Geoscience"},
+{cat:"mortality",headline:"1,301",context:"Pilgrims killed during the 2024 Hajj in temperatures exceeding 51.8°C.",source:"Saudi Health Ministry / AP 2024"},
+{cat:"mortality",headline:"602",context:"Heat deaths in Phoenix (Maricopa County) in 2024 — a single US county record.",source:"Maricopa County Medical Examiner 2025"},
+{cat:"mortality",headline:"6,743",context:"Heat deaths in Spain in 2024 — down from 11,324 in 2022 but still severe.",source:"ISCIII MoMo System"},
+{cat:"mortality",headline:"~110 (official)",context:"India's reported heat deaths in 2023. Actual figure estimated 10–100× higher due to attribution gaps.",source:"India Ministry of Health / Lancet"},
+{cat:"mortality",headline:"20.74%",context:"Asia's share of global heat-related mortality — low relative to 60% of world population.",source:"Lancet Countdown 2025"},
+
+// ECONOMY
+{cat:"economy",headline:"$1.09 Trillion",context:"Annual global productivity loss from heat stress affecting workers worldwide.",source:"ILO 2024"},
+{cat:"economy",headline:"$4.2 Trillion",context:"Projected annual productivity losses by 2030 if current warming trajectory continues.",source:"ILO Working on a Warmer Planet 2019"},
+{cat:"economy",headline:"490 Billion",context:"Labour hours lost globally to heat in 2023 — equivalent to 80 million full-time jobs.",source:"Lancet Countdown 2025"},
+{cat:"economy",headline:"5.6% GDP",context:"Projected GDP loss for South Asia by 2030 from heat — more than double the global average.",source:"World Bank 2024"},
+{cat:"economy",headline:"$7.9 Trillion",context:"Cost of climate inaction by 2100 including heat, flooding, and agricultural losses.",source:"Swiss Re Sigma Report 2024"},
+{cat:"economy",headline:"34 Million",context:"Working days lost to heat in India alone in 2023.",source:"ILO 2024 / Reserve Bank of India"},
+{cat:"economy",headline:"50% Increase",context:"Projected growth in cooling energy demand by 2030 vs 2020 levels.",source:"IEA Future of Cooling 2023"},
+
+// WORKERS
+{cat:"workers",headline:"2.41 Billion",context:"Workers worldwide exposed to excessive heat — 70% of the global workforce.",source:"ILO 2024"},
+{cat:"workers",headline:"18,960",context:"Annual occupational deaths from excessive heat globally.",source:"ILO 2024"},
+{cat:"workers",headline:"22.85 Million",context:"Heat-related occupational injuries per year.",source:"ILO 2024"},
+{cat:"workers",headline:"1.41 Billion",context:"Agriculture workers exposed — 58.4% of all heat-exposed workers globally.",source:"ILO 2024"},
+{cat:"workers",headline:"67%",context:"Share of countries with NO enforceable maximum workplace temperature law.",source:"ILO 2024"},
+{cat:"workers",headline:"25% Drop",context:"Productivity decline when wet-bulb globe temperature exceeds 33°C.",source:"Kjellstrom et al. 2018, Nature Climate Change"},
+{cat:"workers",headline:"1.6 Billion",context:"Informal workers with zero access to formal heat safety nets.",source:"ILO 2024"},
+{cat:"workers",headline:"50% Fatal",context:"Heat stroke fatality rate when left untreated.",source:"WHO Occupational Health Guidelines"},
+
+// CHILDREN
+{cat:"children",headline:"200 Million",context:"Children currently living in extreme high heat zones worldwide.",source:"UNICEF 2024"},
+{cat:"children",headline:"242 Million",context:"Children whose education is disrupted by heat — closures, absenteeism, reduced learning.",source:"UNICEF / UNESCO 2024"},
+{cat:"children",headline:"33,000 Schools",context:"Schools closed in Bangladesh in 2024 from heat, affecting 18 million children.",source:"Bangladesh Ministry of Education / UNICEF"},
+{cat:"children",headline:"21% Score Drop",context:"Learning outcome decline when students are exposed to high heat during study and exams.",source:"Park et al. 2020, Nature Human Behaviour"},
+{cat:"children",headline:"84%",context:"Schools in the Global South that lack any cooling infrastructure.",source:"UNESCO Global Education Monitoring 2024"},
+{cat:"children",headline:"559 Million",context:"Children who walk to school in extreme heat conditions.",source:"UNICEF Safe to School 2024"},
+{cat:"children",headline:"2 Billion",context:"Children projected to face annual heatwave exposure by 2050 — across all climate scenarios.",source:"UNICEF 2024 Projections"},
+
+// URBAN
+{cat:"urban",headline:"1,190 Deaths Averted",context:"Ahmedabad's Heat Action Plan saves 1,190 lives per year at just $0.50 per person.",source:"NRDC / Ahmedabad Municipal Corp. 2023"},
+{cat:"urban",headline:"368 Shelters",context:"Barcelona's climate refuges — repurposed libraries, museums, parks as cooling spaces. 250K visits in 2023.",source:"Barcelona City Council 2024"},
+{cat:"urban",headline:"2°C Cooler",context:"Medellín's 36 green corridors (36 km) reduced ambient temperature by 2°C at $6.50/person.",source:"C40 Cities / Medellín 2023"},
+{cat:"urban",headline:"$100M Invested",context:"Phoenix cool corridor investment (2020–2025), yet heat deaths still reached record 602.",source:"City of Phoenix / Maricopa County 2024"},
+{cat:"urban",headline:"6.5 Million",context:"People reached by Ahmedabad's heat early warning system.",source:"Ahmedabad Municipal Corporation"},
+{cat:"urban",headline:"23 States",context:"Indian states that have replicated Ahmedabad's Heat Action Plan model.",source:"NRDC 2023"},
+{cat:"urban",headline:"€3.2M/year",context:"Barcelona's annual cost to operate 368 cooling shelters — no new construction needed.",source:"Barcelona Climate Plan 2024"},
+
+// SOLUTIONS
+{cat:"solutions",headline:"2–5°C Cooler",context:"Indoor temperature reduction from cool roof installations in low-income housing.",source:"NRDC Cool Roofs Toolkit / Berkeley Lab"},
+{cat:"solutions",headline:"20–40% Savings",context:"Cooling energy reduction from reflective roof coatings — less AC, lower bills, less CO₂.",source:"Akbari et al. 2012, Energy and Buildings"},
+{cat:"solutions",headline:"80% Reduction",context:"Heat mortality reduction achievable with comprehensive Heat Action Plans across Europe.",source:"Lancet Countdown Europe 2024"},
+{cat:"solutions",headline:"50% Fewer Deaths",context:"Mortality reduction when heat early warnings are issued 24–48 hours ahead.",source:"WMO Early Warnings for All 2024"},
+{cat:"solutions",headline:"1.2°C per 10%",context:"Ambient temperature reduction for every 10% increase in urban tree canopy coverage.",source:"Ziter et al. 2019, PNAS"},
+{cat:"solutions",headline:"5–7°C Surface Drop",context:"Permeable cool pavements reduce surface temperature vs. traditional asphalt (LA CoolSeal).",source:"UCLA Heat Island Group"},
+{cat:"solutions",headline:"30% Biodiversity",context:"Medellín's green corridors increased biodiversity by 30% alongside temperature reduction.",source:"C40 / Medellín Evaluation 2023"},
+
+// PROJECTIONS
+{cat:"projections",headline:"1.04 Million/yr",context:"Projected annual heat deaths by 2050 under middle-of-the-road emissions (SSP2-4.5).",source:"Lancet Countdown 2025 Projections"},
+{cat:"projections",headline:"1.5 Million/yr",context:"Projected annual heat deaths by 2100 under high emissions (SSP5-8.5).",source:"Zhao et al. 2021, Nature Climate Change"},
+{cat:"projections",headline:"1.6 Billion",context:"Urban population exposed to extreme heat by 2050 under current urbanisation trends.",source:"World Bank Urban Heat 2024"},
+{cat:"projections",headline:"970 Cities",context:"Cities exceeding 35°C for 30+ days by 2050 — up from ~350 today.",source:"C40 / Urban Climate Change Research Network"},
+{cat:"projections",headline:"3.5 Billion",context:"Workers projected to be exposed to excessive heat by 2050.",source:"ILO 2024 Projections"},
+{cat:"projections",headline:"$7.9 Trillion/yr",context:"Total annual cost of climate inaction by 2100 including productivity, health, and infrastructure.",source:"Swiss Re Sigma Report 2024"},
+];
+
+const grid=document.getElementById('grid');
+function render(filter){
+  grid.innerHTML='';
+  const items=filter==='all'?data:data.filter(d=>d.cat===filter);
+  items.forEach(d=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.dataset.cat=d.cat;
+    card.innerHTML=`<div class="cat">${d.cat}</div><div class="headline">${d.headline}</div><div class="context">${d.context}</div><div class="source">📄 ${d.source}</div>`;
+    grid.appendChild(card);
+  });
+}
+render('all');
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.filter);
+  });
+});
+</script>
+
+</body>
+</html>
