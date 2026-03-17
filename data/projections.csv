@@ -1,0 +1,13 @@
+indicator,value,year,scenario,source
+Annual heat deaths (global),1040000,2050,SSP2-4.5 (middle road),Lancet Countdown 2025 projections
+Annual heat deaths (global),1500000,2100,SSP5-8.5 (high emissions),Zhao et al. 2021 / Nature Climate Change
+Productivity loss (global),4200000000000 USD,2030,Current trajectory,ILO Working on a Warmer Planet 2019
+Productivity loss (global),7900000000000 USD,2100,SSP5-8.5,Swiss Re Sigma Report 2024
+Urban population exposed to extreme heat,1600000000,2050,Current urbanization trend,World Bank Urban Heat 2024
+Children facing annual heatwaves,2000000000,2050,All scenarios,UNICEF 2024
+Cities exceeding 35°C for 30+ days,970,2050,SSP2-4.5,C40 Cities / Urban Climate Change Research Network
+Workers exposed to excessive heat,3500000000,2050,Current trajectory,ILO 2024 projections
+Labour hours lost annually,300000000000,2030,Current trajectory,Lancet Countdown 2025
+Agricultural yield loss (global),10,% by 2050,SSP2-4.5,IPCC AR6 WGII Chapter 5
+Sea-level rise compounding coastal heat,0.5 m,2100,SSP2-4.5,IPCC AR6 WGI
+Heat-attributable mortality reduction (achievable),80,%,2030 (target),With comprehensive HAPs — Lancet Europe 2024

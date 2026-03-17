@@ -1,0 +1,109 @@
+{
+  "calculator": {
+    "name": "Heat Resilience Champions Impact Calculator",
+    "version": "1.0",
+    "description": "Models programme outcomes based on adjustable input parameters"
+  },
+  "inputs": {
+    "champions_trained": {
+      "label": "Number of Champions Trained",
+      "min": 50,
+      "max": 10000,
+      "default": 500,
+      "unit": "people",
+      "source": "Programme design variable"
+    },
+    "cool_roof_m2_per_champion": {
+      "label": "Cool Roof m² Installed per Champion",
+      "min": 20,
+      "max": 200,
+      "default": 50,
+      "unit": "m²",
+      "source": "NRDC Cool Roofs Toolkit 2023 — average community deployment",
+      "benchmark": "Ahmedabad programme average: 45 m² per trained volunteer"
+    },
+    "co2_per_m2": {
+      "label": "CO₂ Saved per m² of Cool Roof per Year",
+      "min": 1,
+      "max": 5,
+      "default": 2,
+      "unit": "kg CO₂/m²/year",
+      "source": "Berkeley Lab / Akbari et al. 2012 — depends on climate zone and cooling energy mix",
+      "benchmark": "Range: 1.2 kg (mild climate) to 4.8 kg (hot + coal-heavy grid)"
+    },
+    "people_reached_per_champion": {
+      "label": "People Reached per Champion",
+      "min": 10,
+      "max": 200,
+      "default": 50,
+      "unit": "people",
+      "source": "NRDC community health worker model — Ahmedabad HAP",
+      "benchmark": "Ahmedabad CHWs reach 50–80 households each during heat season"
+    },
+    "cost_per_champion": {
+      "label": "Cost per Champion (Training + Materials)",
+      "min": 50,
+      "max": 500,
+      "default": 150,
+      "unit": "USD",
+      "source": "Globe From Home programme design estimates",
+      "benchmark": "Ahmedabad HAP: ~$0.50/person; includes training materials, basic cool roof kit, awareness collateral"
+    },
+    "deployment_rate": {
+      "label": "Deployment Rate (% of Trained Champions Active)",
+      "min": 30,
+      "max": 90,
+      "default": 65,
+      "unit": "%",
+      "source": "Community health programme retention benchmarks — WHO CHW Guidelines 2018",
+      "benchmark": "Typical NGO volunteer retention 60–75% after 12 months"
+    }
+  },
+  "formulas": {
+    "active_champions": "champions_trained × (deployment_rate / 100)",
+    "total_cool_roof_m2": "active_champions × cool_roof_m2_per_champion",
+    "tonnes_co2_saved": "(total_cool_roof_m2 × co2_per_m2) / 1000",
+    "people_protected": "active_champions × people_reached_per_champion",
+    "total_programme_cost": "champions_trained × cost_per_champion",
+    "cost_per_tonne_co2": "total_programme_cost / tonnes_co2_saved",
+    "cost_per_person_protected": "total_programme_cost / people_protected"
+  },
+  "example_output": {
+    "inputs_used": {
+      "champions_trained": 500,
+      "cool_roof_m2_per_champion": 50,
+      "co2_per_m2": 2,
+      "people_reached_per_champion": 50,
+      "cost_per_champion": 150,
+      "deployment_rate": 65
+    },
+    "results": {
+      "active_champions": 325,
+      "total_cool_roof_m2": 16250,
+      "tonnes_co2_saved": 32.5,
+      "people_protected": 16250,
+      "total_programme_cost": 75000,
+      "cost_per_tonne_co2": 2307.69,
+      "cost_per_person_protected": 4.62
+    }
+  },
+  "benchmarks": {
+    "ahmedabad_hap": {
+      "cost_per_person": 0.50,
+      "deaths_averted_per_year": 1190,
+      "population_covered": 6500000,
+      "source": "NRDC / Ahmedabad Municipal Corporation 2023"
+    },
+    "medellin_green_corridors": {
+      "cost_per_person": 6.50,
+      "temperature_reduction_celsius": 2.0,
+      "corridors": 36,
+      "source": "C40 Cities / Medellin Evaluation 2023"
+    },
+    "cool_roof_energy_savings": {
+      "range_percent": "20–40%",
+      "indoor_temp_reduction_celsius": "2–5°C",
+      "source": "NRDC Cool Roofs Toolkit / Berkeley Lab"
+    }
+  }
+}

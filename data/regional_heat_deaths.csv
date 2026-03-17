@@ -1,0 +1,16 @@
+country,year,deaths,temperature_peak,source
+Spain,2024,6743,45.4°C,Instituto de Salud Carlos III (ISCIII) MoMo system
+Spain,2022,11324,45.7°C,Ballester et al. 2023 / Nature Medicine
+Italy,2022,18010,42.0°C,Ballester et al. 2023 / Nature Medicine
+Germany,2022,8173,40.3°C,Ballester et al. 2023 / Nature Medicine
+France,2003,14802,44.1°C,Robine et al. 2008 / EuroSurveillance
+India,2023,110 (official),50.5°C (Phalodi),"India MoH — massive undercount; Lancet estimates 10x–100x actual"
+India,2024,undercount,52.9°C (Delhi),India Meteorological Department; deaths vastly under-attributed
+United States,2022,2302,varies by state,CDC WONDER database
+United States,2024,602 (Phoenix only),48.3°C (Phoenix),Maricopa County Medical Examiner
+Europe (18 countries),2022,62000,varies,Ballester et al. 2023 / Nature Medicine
+Europe (monitored),2023,47690,varies,Lancet Countdown Europe 2024
+Asia (regional share),2023,~113000,varies,"Lancet Countdown 2025 — 20.74% of 546K global"
+Bangladesh,2023,data gap,43.8°C,BMD / WHO South-East Asia; systematic recording absent
+Saudi Arabia (Hajj),2024,1301,51.8°C,Saudi Health Ministry / AP reporting
+Russia,2010,56000,44.0°C (Moscow region),Barriopedro et al. 2011 / Nature Geoscience

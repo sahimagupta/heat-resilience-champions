@@ -1,0 +1,11 @@
+year,region,deaths,source,notes
+2023,Global,546000,Lancet Countdown 2025,Annual heat-related mortality estimate; 167% increase since 2000
+2024,Saudi Arabia (Hajj),1301,Saudi Health Ministry / AP 2024,Hajj pilgrimage heat deaths; temperatures exceeded 51.8°C
+2003,Europe,70000,Robine et al. 2008 / EuroSurveillance,"Summer heatwave; France 14802, Italy 20089, Spain 15090"
+2010,Russia,56000,Barriopedro et al. 2011 / Nature Geoscience,Moscow heatwave; wildfire smoke compounded mortality
+2022,Europe,62000,Ballester et al. 2023 / Nature Medicine,"18-country study; Spain, Italy, Germany highest"
+2023,Europe,47690,Lancet Countdown Europe 2024,Heat-related deaths across monitored European nations
+2023,India,undercount,India Ministry of Health / Lancet,Official count ~110 but actual estimated 10x–100x higher due to attribution gaps
+2023,Asia (share),20.74%,Lancet Countdown 2025,Asia's share of global heat-related mortality
+2022,United States,2302,CDC WONDER / EPA 2024,Reported heat-related deaths; significant undercount estimated
+2024,Phoenix (Maricopa County),602,Maricopa County Public Health 2025,Record heat deaths for single US county

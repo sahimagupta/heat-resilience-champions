@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+title: "Heat Resilience Champions — Impact Measurement Framework"
+authors:
+  - name: "Globe From Home"
+    website: "https://www.globefromhome.com"
+version: "1.0.0"
+date-released: "2026-03-17"
+license: MIT
+repository-code: "https://github.com/globefromhome/heat-resilience-champions"
+keywords:
+  - heat resilience
+  - climate adaptation
+  - impact measurement
+  - cool roofs
+  - community health
+  - SDG 13
