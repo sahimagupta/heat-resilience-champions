@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif}
+body{background:#f8f9fa;color:#1a1a1a;padding:20px}
+.header{background:linear-gradient(135deg,#0a3d2e 0%,#145a3c 50%,#1a7a50 100%);border-radius:16px;padding:28px 32px;margin-bottom:20px;color:#fff}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.header-title{font-size:22px;font-weight:700;line-height:1.3;max-width:70%}
+.header-badge{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;letter-spacing:0.05em;text-align:center}
+.header-sub{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;border-top:1px solid rgba(255,255,255,0.2);padding-top:12px;margin-top:4px}
+.section-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#666;margin:20px 0 10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat-card{background:#fff;border-radius:12px;padding:16px;border:1px solid #e8ecef;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stat-card.red::before{background:#d63031}
+.stat-card.amber::before{background:#e17055}
+.stat-card.blue::before{background:#0984e3}
+.stat-card.green::before{background:#00b894}
+.stat-card.purple::before{background:#6c5ce7}
+.stat-card.dark::before{background:#2d3436}
+.stat-num{font-size:32px;font-weight:700;line-height:1;margin-bottom:4px}
+.stat-label{font-size:12px;color:#444;line-height:1.4;margin-bottom:6px}
+.stat-source{font-size:10px;color:#999;font-style:italic}
+.big-card{background:#fff;border-radius:12px;padding:20px;border:1px solid #e8ecef}
+.big-card-title{font-size:15px;font-weight:600;margin-bottom:12px;color:#1a1a1a}
+.row-item{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid #f0f0f0;gap:12px}
+.row-item:last-child{border-bottom:none}
+.row-label{font-size:12px;color:#333;line-height:1.4;flex:1}
+.row-val{font-size:13px;font-weight:600;text-align:right;white-space:nowrap}
+.row-source{font-size:10px;color:#aaa;margin-top:2px;text-align:right}
+.highlight-box{background:linear-gradient(135deg,#0a3d2e,#1a7a50);border-radius:12px;padding:20px;color:#fff}
+.hl-q{font-size:16px;font-weight:700;line-height:1.4;margin-bottom:8px}
+.hl-sub{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.6}
+.oecd-card{background:#fff;border-radius:12px;padding:18px;border:1px solid #e8ecef;border-left:4px solid #0a3d2e}
+.oecd-flag{display:inline-block;font-size:10px;font-weight:700;background:#0a3d2e;color:#fff;padding:2px 7px;border-radius:4px;margin-bottom:8px;letter-spacing:0.05em}
+.oecd-title{font-size:13px;font-weight:600;margin-bottom:8px}
+.oecd-text{font-size:12px;color:#555;line-height:1.6}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;margin-top:6px}
+.tag-oecd{background:#e8f5e9;color:#1b5e20}
+.tag-un{background:#e3f2fd;color:#0d47a1}
+.tag-lancet{background:#fce4ec;color:#880e4f}
+.tag-wb{background:#fff3e0;color:#e65100}
+.divider{border:none;border-top:1px solid #eee;margin:8px 0}
+.two-col{display:grid;grid-template-columns:1.4fr 1fr;gap:12px}
+.impact-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #f5f5f5}
+.impact-row:last-child{border-bottom:none}
+.impact-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.impact-text{font-size:12px;color:#444;line-height:1.5}
+.impact-bold{font-weight:600;color:#1a1a1a}
+.footer{margin-top:20px;background:#fff;border-radius:12px;padding:16px 20px;border:1px solid #e8ecef}
+.footer-title{font-size:11px;font-weight:700;color:#666;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px}
+.source-list{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.source-item{font-size:10px;color:#888;line-height:1.4;padding:3px 0}
+.source-item span{color:#333;font-weight:500}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="header-title">Do Schools Need to Adapt Faster to a Warming World?<br>The Data Case for Climate Education</div>
+    <div class="header-badge">PRE-DISCUSSION<br>MARCH 2026<br>GLOBE FROM HOME</div>
+  </div>
+  <div class="header-sub">Sources: OECD Education & Skills (Schleicher, 17 March 2026) · UNICEF 2025 · UNESCO GEM Report 2024 · Lancet Countdown 2025 · World Bank 2024 · ILO 2024 · Nature 2024</div>
+</div>
+
+<!-- THE ONE QUESTION -->
+<div class="highlight-box" style="margin-bottom:20px">
+  <div class="hl-q">"Rising temperatures are already disrupting learning for hundreds of millions of children. Yet countries score just 21% on average for climate content in their school curricula. The crisis is in the classroom. The curriculum is not."</div>
+  <div class="hl-sub">This dashboard assembles the data that governments, education ministries, and funders need to confront — before discussing what comes next.</div>
+</div>
+
+<!-- TOP STATS ROW -->
+<div class="section-label">Scale of the crisis — what is already happening to children and schools</div>
+<div class="grid4" style="margin-bottom:12px">
+  <div class="stat-card red">
+    <div class="stat-num" style="color:#d63031">242M</div>
+    <div class="stat-label">Students lost school days to climate events in 2024 — 1 in 7 children worldwide</div>
+    <div class="stat-source">UNICEF 2025 — Learning Interrupted</div>
+  </div>
+  <div class="stat-card amber">
+    <div class="stat-num" style="color:#e17055">1B</div>
+    <div class="stat-label">Children at extremely high risk from the impacts of climate change globally</div>
+    <div class="stat-source">UNICEF 2021</div>
+  </div>
+  <div class="stat-card blue">
+    <div class="stat-num" style="color:#0984e3">171M</div>
+    <div class="stat-label">Students affected by heatwaves in 2024 — the single largest cause of school disruption</div>
+    <div class="stat-source">UNICEF 2025 — Learning Interrupted</div>
+  </div>
+  <div class="stat-card purple">
+    <div class="stat-num" style="color:#6c5ce7">21%</div>
+    <div class="stat-label">Average score of 76 countries assessed on climate change content in school curricula</div>
+    <div class="stat-source">UNESCO GEM Report 2024</div>
+  </div>
+</div>
+
+<!-- OECD NEW EVIDENCE + LEARNING IMPACT -->
+<div class="section-label">New OECD evidence — rising temperatures and school learning (Schleicher, 17 March 2026)</div>
+<div class="two-col" style="margin-bottom:12px">
+  <div class="big-card">
+    <div class="big-card-title">📊 What the OECD data shows — direct impact on children's learning</div>
+    <div class="impact-row">
+      <div class="impact-icon" style="background:#fff0f0">📉</div>
+      <div class="impact-text"><span class="impact-bold">USA: </span>Each 1°F (0.55°C) hotter school year without air conditioning reduces PSAT scores by ~1%. Compounding year on year.</div>
+    </div>
+    <div class="impact-row">
+      <div class="impact-icon" style="background:#fff8e1">📝</div>
+      <div class="impact-text"><span class="impact-bold">Japan: </span>An additional school day above 34°C without air conditioning lowers test scores by 0.56 standard deviations.</div>
+    </div>
+    <div class="impact-row">
+      <div class="impact-icon" style="background:#f3e5f5">🏥</div>
+      <div class="impact-text"><span class="impact-bold">London (UK): </span>Hospital admissions increased 0.24% among children under 5 on high-heat days.</div>
+    </div>
+    <div class="impact-row">
+      <div class="impact-icon" style="background:#e8f5e9">🤒</div>
+      <div class="impact-text"><span class="impact-bold">England: </span>2.5% increase in the proportion of fever calls on high-temperature days.</div>
+    </div>
+    <div class="impact-row">
+      <div class="impact-icon" style="background:#e3f2fd">🏫</div>
+      <div class="impact-text"><span class="impact-bold">France 2025: </span>Nearly 1,900 schools closed. Southern Brazil suspended return to classes. 18 Mexican states restricted outdoor activities (2023).</div>
+    </div>
+    <span class="tag tag-oecd">OECD Education & Skills · Schleicher · 17 Mar 2026</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="oecd-card">
+      <div class="oecd-flag">OECD 2024</div>
+      <div class="oecd-title">By 2050 — what children in primary school will face</div>
+      <div class="oecd-text">Under a middle-of-the-road scenario, students across Bulgaria, Hungary, Colombia, Costa Rica and the USA face more than 30–60 extra days per year above 30°C at school by 2050. Under high emissions, this reaches 60–365 days across most OECD nations.</div>
+      <div class="tag tag-oecd">CHC-CMIP6 · 13 countries · OECD ad hoc survey</div>
+    </div>
+    <div class="oecd-card">
+      <div class="oecd-flag">OECD INSIGHT</div>
+      <div class="oecd-title">The adaptation gap — what OECD governments are doing</div>
+      <div class="oecd-text">Japan: universalised AC in all public schools. Australia: AUD $477M invested to equip 649 state schools. England: mapped overheating risks in schools. Paris: assessed 670 school grounds via geolocation. Rhode Island: built 4 contingency heat days into the calendar. Spain: shifted classes to early morning during heatwaves.</div>
+      <div class="tag tag-oecd">OECD Education Indicators in Focus · Mar 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL ECONOMY + WORKFORCE ROW -->
+<div class="section-label">Why this is also an economic and workforce crisis — not just an education crisis</div>
+<div class="grid3" style="margin-bottom:12px">
+  <div class="big-card">
+    <div class="big-card-title">💸 Economic cost of inaction on heat</div>
+    <div class="row-item">
+      <div><div class="row-label">Labour productivity lost globally in 2024 to heat</div><div class="row-source">Lancet Countdown 2025</div></div>
+      <div><div class="row-val" style="color:#d63031">$1.09T</div></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">GDP loss projected by 2060 under high emissions</div><div class="row-source">Nature 2024 / Tsinghua & Cambridge</div></div>
+      <div><div class="row-val" style="color:#e17055">$24.7T</div></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">Annual productivity losses from heat by 2030</div><div class="row-source">ILO / Future Earth</div></div>
+      <div><div class="row-val" style="color:#e17055">$4.2T</div></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">ROI per $1 invested in education (baseline)</div><div class="row-source">UNICEF benchmark</div></div>
+      <div><div class="row-val" style="color:#00b894">$9.25</div></div>
+    </div>
+    <span class="tag tag-lancet">Lancet · Nature · ILO</span>
+  </div>
+
+  <div class="big-card">
+    <div class="big-card-title">👷 The workforce the world is not training</div>
+    <div class="row-item">
+      <div><div class="row-label">Workers exposed to excessive heat globally</div><div class="row-source">ILO July 2024 / WHO-WMO Aug 2025</div></div>
+      <div><div class="row-val" style="color:#6c5ce7">2.41B</div></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">Occupational deaths from heat per year (est.)</div><div class="row-source">ILO 2024</div></div>
+      <div><div class="row-val" style="color:#d63031">~19,000</div></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">Share of global workforce exposed to heat</div><div class="row-source">ILO 2024</div></div>
+      <div><div class="row-val" style="color:#e17055">70%</div></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">Countries with climate finance going to education</div><div class="row-source">UNESCO GEM Report 2024</div></div>
+      <div><div class="row-val" style="color:#d63031">0</div></div>
+    </div>
+    <span class="tag tag-un">ILO · WHO · UNESCO</span>
+  </div>
+
+  <div class="big-card">
+    <div class="big-card-title">🎓 What education can actually do — proof</div>
+    <div class="row-item">
+      <div><div class="row-label">Household energy reduction from curriculum-based climate education</div><div class="row-source">World Bank 2024</div></div>
+      <div><div class="row-val" style="color:#00b894">−15%</div></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">School energy reduction from curriculum-based climate education</div><div class="row-source">World Bank 2024</div></div>
+      <div><div class="row-val" style="color:#00b894">−30%</div></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">Europe's heat mortality reduction via adaptation</div><div class="row-source">Nature Medicine 2024 / ISGlobal</div></div>
+      <div><div class="row-val" style="color:#00b894">−80%</div></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">Biodiversity content score in 76 countries' curricula</div><div class="row-source">UNESCO GEM Report 2024</div></div>
+      <div><div class="row-val" style="color:#d63031">12%</div></div>
+    </div>
+    <span class="tag tag-wb">World Bank · Nature Medicine · UNESCO</span>
+  </div>
+</div>
+
+<!-- THE CURRICULUM GAP VISUALISED -->
+<div class="section-label">The curriculum gap — what countries are teaching vs what the world needs</div>
+<div class="big-card" style="margin-bottom:12px">
+  <div class="big-card-title">What 76 countries score on green curriculum content — UNESCO GEM Report 2024</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px">
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:12px;color:#555">Environment & sustainability content</span>
+        <span style="font-size:13px;font-weight:700;color:#e17055">50%</span>
+      </div>
+      <div style="height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden">
+        <div style="width:50%;height:100%;background:#e17055;border-radius:4px"></div>
+      </div>
+      <div style="font-size:10px;color:#aaa;margin-top:3px">Half of maximum possible score</div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:12px;color:#555">Climate change content specifically</span>
+        <span style="font-size:13px;font-weight:700;color:#d63031">21%</span>
+      </div>
+      <div style="height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden">
+        <div style="width:21%;height:100%;background:#d63031;border-radius:4px"></div>
+      </div>
+      <div style="font-size:10px;color:#aaa;margin-top:3px">Less than 1 in 4 points — critical gap</div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:12px;color:#555">Biodiversity content</span>
+        <span style="font-size:13px;font-weight:700;color:#d63031">12%</span>
+      </div>
+      <div style="height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden">
+        <div style="width:12%;height:100%;background:#d63031;border-radius:4px"></div>
+      </div>
+      <div style="font-size:10px;color:#aaa;margin-top:3px">Nearly invisible in global curricula</div>
+    </div>
+  </div>
+  <div style="margin-top:14px;padding:10px;background:#fff8e1;border-radius:8px;font-size:12px;color:#555;line-height:1.5">
+    <strong style="color:#333">The compounding gap:</strong> Less climate content appears in social science than in science syllabi. Less appears in Grade 3 than in Grade 6 or 9. The youngest — and most formative — learners get the least. And zero climate finance has been directed to education to fix it. (UNESCO GEM Report 2024)
+  </div>
+</div>
+
+<!-- MORTALITY + SCHOOL DISRUPTION -->
+<div class="section-label">Heat mortality — the human cost of the knowledge gap</div>
+<div class="grid4" style="margin-bottom:20px">
+  <div class="stat-card red">
+    <div class="stat-num" style="color:#d63031;font-size:26px">546,000</div>
+    <div class="stat-label">People die of heat per year globally — up 63% since the 1990s</div>
+    <div class="stat-source">Lancet Countdown 2025 / WHO</div>
+  </div>
+  <div class="stat-card amber">
+    <div class="stat-num" style="color:#e17055;font-size:26px">62,775</div>
+    <div class="stat-label">Heat deaths in Europe in 2024 alone — Italy, Spain, Germany leading</div>
+    <div class="stat-source">Nature Medicine / ISGlobal Sept 2025</div>
+  </div>
+  <div class="stat-card blue">
+    <div class="stat-num" style="color:#0984e3;font-size:26px">1,301</div>
+    <div class="stat-label">Hajj pilgrims died in 5 days in June 2024. 83% unregistered.</div>
+    <div class="stat-source">Journal of Travel Medicine / The Lancet 2024</div>
+  </div>
+  <div class="stat-card green">
+    <div class="stat-num" style="color:#00b894;font-size:26px">~1,190</div>
+    <div class="stat-label">Deaths averted per year in Ahmedabad after training community workers</div>
+    <div class="stat-source">Hess et al. 2018 / Harvard Chan / NRDC</div>
+  </div>
+</div>
+
+<!-- SOURCES -->
+<div class="footer">
+  <div class="footer-title">All sources — verified, dated, citable</div>
+  <div class="source-list">
+    <div class="source-item"><span>OECD Education & Skills</span> — Schleicher, 17 Mar 2026 · Education Indicators in Focus</div>
+    <div class="source-item"><span>UNICEF 2025</span> — Learning Interrupted: Global Snapshot of Climate-Related School Disruptions in 2024</div>
+    <div class="source-item"><span>UNESCO GEM Report 2024</span> — Education and Climate Change: Learning to Act for People and Planet</div>
+    <div class="source-item"><span>Lancet Countdown 2025</span> — lancetcountdown.org/2025-report</div>
+    <div class="source-item"><span>Nature Medicine / ISGlobal Sept 2025</span> — European heat deaths 2024 · doi:10.1038/s41591-025-03954-7</div>
+    <div class="source-item"><span>World Bank 2024</span> — Curriculum-based education reduces household energy use 15%, school energy use 30%</div>
+    <div class="source-item"><span>ILO July 2024</span> — Ensuring Safety and Health at Work in a Changing Climate</div>
+    <div class="source-item"><span>WHO / WMO August 2025</span> — Protecting Workers from Increasing Heat Stress</div>
+    <div class="source-item"><span>Nature 2024</span> — GDP loss to heat / Tsinghua & Cambridge · doi:10.1038/s41586-024-07147-z</div>
+    <div class="source-item"><span>Hess et al. 2018</span> — Ahmedabad Heat Action Plan evaluation · PMC6236972</div>
+    <div class="source-item"><span>Journal of Travel Medicine 2024</span> — Hajj heat deaths · doi:10.1093/jtm/taae096</div>
+    <div class="source-item"><span>UNICEF 2021</span> — The Climate Crisis is a Child Rights Crisis</div>
+  </div>
+</div>
+
+</body>
+</html>

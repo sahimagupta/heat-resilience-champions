@@ -1,0 +1,331 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1rem 0}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.tab{font-size:11px;font-weight:500;padding:6px 14px;border-radius:20px;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:none;color:var(--color-text-secondary)}
+.tab.on{background:#0F6E56;color:#fff;border-color:#0F6E56}
+.sl{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-tertiary);margin:16px 0 8px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:13px 16px;margin-bottom:10px}
+.ct{font-size:14px;font-weight:500;margin-bottom:5px}
+.cs{font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cell{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:9px 12px}
+.cl{font-size:11px;color:var(--color-text-tertiary);margin-bottom:3px}
+.cv{font-size:13px;font-weight:500;color:var(--color-text-primary);line-height:1.4}
+.csub{font-size:11px;color:var(--color-text-secondary);margin-top:2px;line-height:1.4}
+.tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 7px;border-radius:3px;margin-top:4px}
+.tpre{background:#E6F1FB;color:#0C447C}
+.tp1{background:#E1F5EE;color:#085041}
+.tp2{background:#FAEEDA;color:#633806}
+.tp3{background:#EEEDFE;color:#3C3489}
+.tfunder{background:#FCEBEB;color:#A32D2D}
+.tgov{background:#EAF3DE;color:#27500A}
+.hero{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:16px}
+.ht{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.hs{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.mflow{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr 24px 1fr;gap:4px;align-items:center;margin:10px 0}
+.mbox{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 8px;text-align:center}
+.mn{font-size:16px;font-weight:500}
+.ml{font-size:10px;color:var(--color-text-secondary);margin-top:2px;line-height:1.3}
+.arr{text-align:center;font-size:16px;color:var(--color-text-tertiary)}
+.tw{overflow-x:auto;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead tr{background:var(--color-background-secondary)}
+th{text-align:left;font-size:11px;font-weight:500;color:var(--color-text-secondary);padding:8px 10px;border-bottom:0.5px solid var(--color-border-tertiary);white-space:nowrap}
+td{padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:top;font-size:11px;line-height:1.4}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--color-background-secondary)}
+.dash-header{background:#0F6E56;border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:14px}
+.dht{font-size:16px;font-weight:500;color:#fff;margin-bottom:3px}
+.dhs{font-size:11px;color:#9FE1CB}
+.mc{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 14px;text-align:center}
+.mb{font-size:24px;font-weight:500}
+.mlab{font-size:11px;color:var(--color-text-secondary);margin-top:3px}
+.msub{font-size:10px;color:var(--color-text-tertiary);margin-top:2px}
+.fcard{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 14px;margin-bottom:8px;border-left:3px solid}
+.fn{font-size:13px;font-weight:500;margin-bottom:4px}
+.ft{font-size:12px;color:var(--color-text-secondary);line-height:1.5;margin-bottom:4px}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:14px 0}
+</style>
+
+<div class="wrap">
+<div class="tabs">
+  <button class="tab on" onclick="go('problem',this)">The problem</button>
+  <button class="tab" onclick="go('product',this)">The product</button>
+  <button class="tab" onclick="go('multiplier',this)">Multiplier effect</button>
+  <button class="tab" onclick="go('kpis',this)">Pre & post KPIs</button>
+  <button class="tab" onclick="go('funders',this)">Funders & govt</button>
+  <button class="tab" onclick="go('dashboard',this)">Dashboard</button>
+</div>
+<div id="content"></div>
+</div>
+
+<script>
+function go(tab, btn) {
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('on')});
+  btn.classList.add('on');
+  var h = '';
+
+  if(tab==='problem'){
+    h+='<div class="dash-header"><div class="dht">Why K-12 Climate Education Cannot Wait</div><div class="dhs">The global data on what is happening to children and schools — and why Globe From Home\'s Level 1 fills a gap no government curriculum currently fills.</div></div>';
+
+    h+='<div class="sl">The scale of the crisis facing children</div>';
+    h+='<div class="g4" style="margin-bottom:14px">';
+    [{n:'242M',l:'students lost school days to climate events in 2024',c:'#E24B4A',s:'UNICEF 2025'},
+     {n:'1B',l:'children at extremely high risk from climate change impacts',c:'#BA7517',s:'UNICEF 2021'},
+     {n:'171M',l:'students affected by heatwaves alone in 2024 — #1 cause of disruption',c:'#185FA5',s:'UNICEF 2025'},
+     {n:'21%',l:'average score of 76 countries on climate content in school curriculum',c:'#534AB7',s:'UNESCO GEM Report 2024'}
+    ].forEach(function(s){
+      h+='<div class="mc"><div class="mb" style="color:'+s.c+'">'+s.n+'</div><div class="mlab">'+s.l+'</div><div class="msub">'+s.s+'</div></div>';
+    });
+    h+='</div>';
+
+    h+='<div class="sl">The curriculum gap — what schools are NOT teaching</div>';
+    h+='<div class="g3">';
+    h+='<div class="cell"><div class="cl">Climate content in curricula</div><div class="cv">Only 21% — out of a possible 100%</div><div class="csub">76 countries assessed. Average climate change content scored just 21/100. UNESCO GEM Report 2024.</div><span class="tag tfunder">Critical gap</span></div>';
+    h+='<div class="cell"><div class="cl">Climate finance going to education</div><div class="cv">Zero %</div><div class="csub">Despite billions in climate finance globally, UNESCO 2024 GEM Report found climate finance has "not been tapped at all in education."</div><span class="tag tfunder">Funding gap</span></div>';
+    h+='<div class="cell"><div class="cl">Students who can take action on climate</div><div class="csub">Knowledge without action skills = inert learning. UNESCO: education must shift from "knowledge transfer to action-oriented learning." Globe From Home does exactly this.</div><span class="tag tgov">GFH solution</span></div>';
+    h+='</div>';
+
+    h+='<div class="sl">Why this matters for funders and governments</div>';
+    h+='<div class="g2">';
+    h+='<div class="cell"><div class="cl">Energy reduction from climate education</div><div class="cv">Students cut energy use by 15%+ at home and 30%+ at school</div><div class="csub">World Bank 2024: curriculum-based environmental education directly reduces energy consumption. Measurable, fast, scalable.</div><span class="tag tp1">World Bank 2024</span></div>';
+    h+='<div class="cell"><div class="cl">Return on investment — education</div><div class="cv">$9.25 returned per $1 invested in education</div><div class="csub">UNICEF baseline ROI for education investment. Climate education adds the green economy pipeline on top of this. Every climate-educated student is a future green worker.</div><span class="tag tp1">UNICEF benchmark</span></div>';
+    h+='</div>';
+  }
+
+  if(tab==='product'){
+    h+='<div class="sl">What Globe From Home Level 1 K-12 is</div>';
+    h+='<div class="card"><div class="ct">Level 1 — Climate & Sustainability Foundation for K-12</div><div class="cs">A structured, live-streamed, source-based programme that takes students on real-time virtual journeys to witness the impacts of climate change around the world — and equips them with systems thinking, global citizenship, and early green skills readiness. Not a textbook. Not a PowerPoint. A real-world experiential education delivered live, across borders, with authentic sources.</div></div>';
+
+    h+='<div class="sl">The 8 topic areas covered in Level 1 K-12</div>';
+    h+='<div class="g4">';
+    ['Climate change & sustainability','Social, racial & gender equality','Global cultures','Global languages','Global religions','World heritage sites','World history','Global arts'].forEach(function(t,i){
+      var colors=['#E24B4A','#BA7517','#185FA5','#534AB7','#0F6E56','#D85A30','#378ADD','#639922'];
+      h+='<div class="cell"><div class="cv" style="color:'+colors[i]+'">'+t+'</div></div>';
+    });
+    h+='</div>';
+
+    h+='<div class="sl">What makes it unique — the 3 product differentiators</div>';
+    h+='<div class="g3">';
+    h+='<div class="cell"><div class="cl">Source-based learning</div><div class="cv">Students travel virtually to where climate change is actually happening</div><div class="csub">Amazon rainforest with scientists. Kibera slum. Bangladesh. China. All live-streamed. No textbook can do this.</div></div>';
+    h+='<div class="cell"><div class="cl">Real-world sources</div><div class="cv">Learning from people living the climate crisis — not just reading about it</div><div class="csub">Indigenous tribes. Climate refugees. Slum communities. Sustainable fashion leaders. This builds empathy that textbooks cannot.</div></div>';
+    h+='<div class="cell"><div class="cl">Globally accessible</div><div class="cv">Unlimited classroom attendees. Multiple languages. No per-student cost at scale.</div><div class="csub">One school licence. One internet connection. One projector. Every student in the school can participate simultaneously.</div></div>';
+    h+='</div>';
+
+    h+='<div class="sl">The 8 learning sessions — what students actually experience</div>';
+    h+='<div class="tw"><table><thead><tr><th>#</th><th>Session</th><th>Virtual destinations</th><th>What students learn</th></tr></thead><tbody>';
+    [['1','UN SDGs & Climate Change','Kibera, Africa (largest slum)','Global inequality, climate justice, SDG framework'],
+     ['2','Regenerating Forests','Brazilian Amazon','Deforestation, carbon sinks, indigenous knowledge'],
+     ['3','Regenerating Oceans','Bangladesh, Maldives','Ocean acidification, climate refugees, coastal restoration'],
+     ['4','Re-thinking Industry','UK, Kenya','Fast fashion, waste, sustainable consumption'],
+     ['5','Food & Food Waste','UK/USA, Peru','Food systems, 40% waste, dietary choices & climate'],
+     ['6','Sustainable Cities','Amsterdam, Nairobi','Urban sprawl, sustainable design, cities of the future'],
+     ['7','Re-thinking Energy','Zimbabwe, Pakistan','Fossil fuels, clean energy transition, energy poverty'],
+     ['8','Electrifying Transport','India, China','EV manufacturing, electric public transit at scale'],
+    ].forEach(function(r){
+      h+='<tr>';r.forEach(function(c){h+='<td>'+c+'</td>';});h+='</tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+
+  if(tab==='multiplier'){
+    h+='<div class="sl">The K-12 multiplier — why this is the most cost-effective climate education investment</div>';
+    h+='<div class="card"><div class="ct">The core multiplier logic</div><div class="cs">Every other climate programme trains individuals. Globe From Home Level 1 trains classrooms — which contain students, teachers, and through them, families and communities. One delivery reaches all four simultaneously. The teacher then delivers independently for years at no additional cost. This is the multiplier that makes K-12 uniquely powerful.</div></div>';
+
+    h+='<div class="sl">Multiplier chain — what one school partnership produces</div>';
+    h+='<div class="mflow">';
+    [{n:'1',l:'School\ndelivery',c:'#0F6E56'},{n:'45',l:'Teachers\ntrained',c:'#185FA5'},{n:'800',l:'Students\nper year',c:'#E24B4A'},{n:'~20K',l:'Community\nreached',c:'#BA7517'}].forEach(function(b,i){
+      h+='<div class="mbox"><div class="mn" style="color:'+b.c+'">'+b.n+'</div><div class="ml">'+b.l+'</div></div>';
+      if(i<3)h+='<div class="arr">→</div>';
+    });
+    h+='</div>';
+    h+='<div class="mflow">';
+    [{n:'45',l:'Teachers\ntrained',c:'#185FA5'},{n:'1,350',l:'Students/yr\n(30 per teacher)',c:'#534AB7'},{n:'13,500',l:'Over 10-yr\ncareer',c:'#0F6E56'},{n:'0',l:'Additional\ncost',c:'#639922'}].forEach(function(b,i){
+      h+='<div class="mbox"><div class="mn" style="color:'+b.c+'">'+b.n+'</div><div class="ml">'+b.l+'</div></div>';
+      if(i<3)h+='<div class="arr">→</div>';
+    });
+    h+='</div>';
+
+    h+='<div class="sl">Scale projections — what the programme delivers over time</div>';
+    h+='<div class="tw"><table><thead><tr><th>Scenario</th><th>Schools</th><th>Students/yr</th><th>Teachers trained (cumul)</th><th>Family members reached</th><th>10-yr student total</th><th>Countries</th></tr></thead><tbody>';
+    [['Pilot — Year 1','10','8,000','450','32,000','80,000','3–5'],
+     ['Phase 2 — Year 2–3','100','80,000','4,500','320,000','800,000','10–15'],
+     ['National — Year 4–5','1,000','800,000','45,000','3.2 million','8 million','20–30'],
+     ['Global scale','10,000+','8 million+','450,000+','32 million+','80 million+','50+'],
+    ].forEach(function(r,i){
+      var bold=i===3?'font-weight:500;color:#0F6E56':'';
+      h+='<tr style="'+bold+'">';r.forEach(function(c){h+='<td>'+c+'</td>';});h+='</tr>';
+    });
+    h+='</tbody></table></div>';
+
+    h+='<div class="sl">The 4-layer multiplier explained</div>';
+    h+='<div class="g4">';
+    [{l:'Student multiplier',v:'Each student shares learning with 4 family members = 3,200 family members per 800-student school',t:'×4 family cascade'},{l:'Teacher multiplier',v:'Each trained teacher delivers for 10+ years = 13,500 students per teacher career at 0 additional cost',t:'×300 career'},{l:'School multiplier',v:'School embeds in curriculum permanently — every future cohort benefits from one training',t:'Permanent'},{l:'Community multiplier',v:'Students become climate advocates — 15% reduce household energy use (World Bank), changing community behaviour',t:'×5 community'}].forEach(function(s){
+      h+='<div class="cell"><div class="cl">'+s.l+'</div><div class="cv">'+s.v+'</div><span class="tag tp1">'+s.t+'</span></div>';
+    });
+    h+='</div>';
+
+    h+='<div class="sl">Why this matters for funders — cost per student comparison</div>';
+    h+='<div class="tw"><table><thead><tr><th>Comparison</th><th>Cost per student</th><th>Reach</th><th>Duration</th></tr></thead><tbody>';
+    [['Traditional school trip (one country)','$200–500/student','30 students','1 day'],
+     ['Standard climate textbook + teacher training','$50–100/student','30 students/yr','1 academic year'],
+     ['One-off climate workshop','$30–80/student','30 students','Half day'],
+     ['Globe From Home Level 1 (school licence)','$5–15/student at scale','All students in school','Full programme + teacher multiplies independently'],
+    ].forEach(function(r,i){
+      var bold=i===3?'font-weight:500;color:#0F6E56':'';
+      h+='<tr style="'+bold+'">';r.forEach(function(c){h+='<td>'+c+'</td>';});h+='</tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+
+  if(tab==='kpis'){
+    h+='<div class="sl">Pre KPIs — projected before programme runs (used to secure funding)</div>';
+    h+='<div class="tw"><table><thead><tr><th>ID</th><th>KPI name</th><th>Unit</th><th>Pre target / projection</th><th>Benchmark source</th><th>Type</th></tr></thead><tbody>';
+    [['P01','Schools enrolled','Count','10 in pilot. 100 by Year 3.','Globe From Home sales pipeline','pre'],
+     ['P02','Students climate-educated','Count','8,000/yr per 10 schools. 800,000/yr at 1,000 schools.','UNESCO avg 800 students/school','pre'],
+     ['P03','Teachers certified','Count','450 in pilot (45 per school avg)','UNESCO teacher-student ratios','pre'],
+     ['P04','Countries represented','Count','Minimum 3 in pilot. 50+ at global scale.','Globe From Home programme design','pre'],
+     ['P05','Knowledge gain — climate science','% delta','Minimum 35% improvement Day 1 → Day 20','Comparable climate education programmes; UNESCO ESD benchmarks','pre'],
+     ['P06','Knowledge gain — SDGs & inequality','% delta','Minimum 30% improvement','UNESCO GEM Report 2024 SDG literacy baseline','pre'],
+     ['P07','Knowledge gain — sustainable consumption','% delta','Minimum 30% improvement','UNESCO Greening Curriculum guidance 2024','pre'],
+     ['P08','Family members reached via student cascade','Count','3,200 per 800-student school (×4)','UNESCO household size data','pre'],
+     ['P09','Energy reduction at home (projected)','%','15% household energy reduction','World Bank 2024: curriculum-based education reduces energy use 15% at home','pre'],
+     ['P10','Energy reduction at school (projected)','%','30% school energy reduction','World Bank 2024: reduces energy use 30% at school','pre'],
+     ['P11','Cost per student climate-educated','USD','$5–15/student at scale','Comparable programmes; UNESCO ESD delivery benchmarks','pre'],
+     ['P12','Schools in countries with no climate curriculum','%','Target 50% of pilot schools in countries scoring <21% on climate content','UNESCO GEM Report 2024: 76-country average just 21/100','pre'],
+    ].forEach(function(r){
+      h+='<tr><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[0]+'</td><td style="font-weight:500">'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[4]+'</td><td><span class="tag tpre">PRE</span></td></tr>';
+    });
+    h+='</tbody></table></div>';
+
+    h+='<div class="sl">Post KPIs — Tier 1 (end of course, Days 1–20, collected by Globe From Home)</div>';
+    h+='<div class="tw"><table><thead><tr><th>ID</th><th>KPI</th><th>Unit</th><th>How collected</th><th>What it proves</th></tr></thead><tbody>';
+    [['T1-01','Enrolment & completion rate','%','Admin records per school','Programme was delivered'],
+     ['T1-02','Knowledge gain — climate science','% delta','Pre/post quiz Day 1 vs Day 20','Climate science learning happened'],
+     ['T1-03','Knowledge gain — SDGs & global inequality','% delta','Pre/post quiz domain 2','Understanding of global systems'],
+     ['T1-04','Knowledge gain — sustainability systems','% delta','Pre/post quiz domain 3','Systems thinking capacity built'],
+     ['T1-05','Knowledge gain — global citizenship','% delta','Pre/post quiz domain 4','Global empathy and civic awareness'],
+     ['T1-06','Teachers certified per school','Count','Admin records','Teacher multiplier activated'],
+     ['T1-07','Countries represented in cohort','Count','Admin records','Cross-border learning documented'],
+     ['T1-08','Student social action projects initiated','Count','Teacher log — Day 8 onwards','Students acting, not just learning'],
+     ['T1-09','Student-produced advocacy materials','Count','Workshop output log','Communication skills + climate action'],
+     ['T1-10','Girls vs boys participation %','%','Enrolment demographic data','Gender equity in climate education'],
+    ].forEach(function(r){
+      h+='<tr><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[0]+'</td><td style="font-weight:500">'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[4]+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+
+    h+='<div class="sl">Post KPIs — Tier 2 (30–90 days, student and teacher survey)</div>';
+    h+='<div class="tw"><table><thead><tr><th>ID</th><th>KPI</th><th>Survey question</th><th>Target</th><th>Type</th></tr></thead><tbody>';
+    [['T2-01','Behaviour change — students','Have you changed any personal behaviour (energy, food, transport, consumption) since the course?','50% report at least 1 change'],
+     ['T2-02','Family cascade — discussions','How many family conversations about climate or sustainability have you had since the course?','Minimum 3 per student'],
+     ['T2-03','Social action projects completed','Did you start or join a climate or sustainability action project since the course?','20% of students initiate a project'],
+     ['T2-04','Teacher integration into regular lessons','Have you embedded Globe From Home content into other lessons or subjects?','60% of teachers deliver 1+ follow-on lesson'],
+     ['T2-05','School sustainability initiatives launched','Did your school start any new sustainability initiatives after the course?','30% of schools launch 1 initiative'],
+     ['T2-06','Green career interest','Are you considering a career connected to climate, sustainability, or environment?','20% positive intent — green pipeline metric'],
+    ].forEach(function(r){
+      h+='<tr><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[0]+'</td><td style="font-weight:500">'+r[1]+'</td><td>'+r[2]+'</td><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[3]+'</td><td><span class="tag tp2">T2 Survey</span></td></tr>';
+    });
+    h+='</tbody></table></div>';
+
+    h+='<div class="sl">Post KPIs — Tier 3 (12–24 months, long-term, partner-dependent)</div>';
+    h+='<div class="tw"><table><thead><tr><th>ID</th><th>KPI</th><th>How measured</th><th>Partner needed</th><th>Type</th></tr></thead><tbody>';
+    [['T3-01','Schools embedding programme in permanent curriculum','Follow-up with school leadership at 12 months','School leadership'],
+     ['T3-02','Measurable energy reduction at school level','Energy bills before/after — school administration data','School finance officer'],
+     ['T3-03','Students progressing to Level 2 green credentials','Globe From Home enrolment tracking','None — internal'],
+     ['T3-04','Government adoption in national curriculum','Policy tracking — ministry engagement','Ministry of Education'],
+     ['T3-05','Published knowledge gain dataset (academic)','Partner with university — pre/post quiz data becomes research paper','Academic partner'],
+     ['T3-06','Student social action project outcomes','Survey at 18 months — what did your project achieve?','None — survey-based'],
+    ].forEach(function(r){
+      h+='<tr><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[0]+'</td><td style="font-weight:500">'+r[1]+'</td><td>'+r[2]+'</td><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[3]+'</td><td><span class="tag tp3">T3 Partner</span></td></tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+
+  if(tab==='funders'){
+    h+='<div class="sl">Target funders and governments — what each wants, what to show them</div>';
+    [{name:'Ministries of Education',color:'#0F6E56',type:'gov',why:'They are mandated to deliver climate literacy. UNESCO\'s Greening Education Partnership is in 97 countries. They need a ready-made programme that meets the standard.',kpis:'Students climate-educated, teachers certified, knowledge gain scores, curriculum integration rate, cost per student, countries covered',hook:'"76 countries scored an average of just 21% on climate content in their curriculum. Your country is probably one of them. We have the programme that closes that gap tomorrow."'},
+     {name:'UK-German Connection / British Council',color:'#185FA5',type:'funder',why:'Cross-border education, global citizenship, multilingual learning. Globe From Home delivers all three simultaneously — students in 3+ countries in the same live session.',kpis:'Countries per cohort, languages delivered in, cross-border connections made, student global citizenship scores, teacher network size',hook:'"This is the only programme where a student in Zimbabwe and a student in Germany experience the same lesson from real sources in both countries at the same time."'},
+     {name:'American Federation of Teachers',color:'#E24B4A',type:'funder',why:'Teacher professional development, curriculum innovation, climate education advocacy. GFH certifies teachers in climate education.',kpis:'Teachers certified, teacher knowledge gain, curriculum integration rate, teacher career development hours, teacher multiplier ratio',hook:'"One day of Globe From Home professional development certifies a teacher who will climate-educate 1,500 students over their career. At what cost per student?"'},
+     {name:'Ban Ki-Moon Centre for Global Citizens',color:'#534AB7',type:'funder',why:'Global citizenship, SDG education, cross-cultural understanding. GFH is the world\'s first source-based platform for this.',kpis:'SDG knowledge scores, global citizenship scores, cross-border student connections, countries represented per cohort, social action projects initiated',hook:'"This is what global citizenship education looks like when it uses real-world sources instead of textbooks. Students don\'t just learn about SDGs — they witness them."'},
+     {name:'GPE / Global Partnership for Education',color:'#BA7517',type:'funder',why:'Climate-resilient education systems. GPE already notes: "climate finance has not been tapped at all in education." GFH is that tap.',kpis:'Students in climate-vulnerable countries, school disruption reduction, curriculum climate content scores, cost per student, long-term curriculum embedding rate',hook:'"242 million children lost school days to climate in 2024. Climate finance has not touched education once. We are the programme that changes that."'},
+     {name:'Cardiff University / Academic Partners',color:'#3C3489',type:'funder',why:'Research partnership, knowledge gain data, publishable outcomes, curriculum validation at scale.',kpis:'Pre/post knowledge gain dataset, behaviour change data, longitudinal student tracking, green career pipeline progression',hook:'"We will generate the first peer-reviewed dataset on source-based K-12 climate education outcomes globally. You will co-author it with us."'},
+    ].forEach(function(f){
+      h+='<div class="fcard" style="border-left-color:'+f.color+'"><div class="fn" style="color:'+f.color+'">'+f.name+'</div>';
+      h+=(f.type==='gov'?'<span class="tag tgov">Government</span>':'<span class="tag tfunder">Funder / partner</span>');
+      h+='<div style="height:6px"></div>';
+      h+='<div class="ft"><strong>Why they fund this:</strong> '+f.why+'</div>';
+      h+='<div class="ft"><strong>KPIs they want:</strong> '+f.kpis+'</div>';
+      h+='<div class="ft" style="font-style:italic"><strong>The hook:</strong> "'+f.hook+'"</div></div>';
+    });
+  }
+
+  if(tab==='dashboard'){
+    h+='<div class="dash-header"><div class="dht">Globe From Home — K-12 Climate Education Dashboard</div><div class="dhs">Live impact tracker. 3 views: programme overview (funder), school-level (partner), government projection (ministry).</div></div>';
+
+    h+='<div class="sl">Dashboard view 1 — programme overview (funder-facing live metrics)</div>';
+    h+='<div class="g4" style="margin-bottom:12px">';
+    [{n:'10',l:'Schools enrolled',sub:'Pilot cohort',c:'#0F6E56'},{n:'8,247',l:'Students climate-educated',sub:'This cohort',c:'#E24B4A'},{n:'423',l:'Teachers certified',sub:'Multiplier: 10+ yr careers',c:'#185FA5'},{n:'32,000',l:'Families reached',sub:'Via student cascade ×4',c:'#534AB7'}].forEach(function(s){
+      h+='<div class="mc"><div class="mb" style="color:'+s.c+'">'+s.n+'</div><div class="mlab">'+s.l+'</div><div class="msub">'+s.sub+'</div></div>';
+    });
+    h+='</div>';
+    h+='<div class="g4" style="margin-bottom:14px">';
+    [{n:'38%',l:'Avg knowledge gain',sub:'Across 4 domains',c:'#0F6E56'},{n:'5',l:'Countries in cohort',sub:'Cross-border learning',c:'#BA7517'},{n:'73',l:'Social action projects',sub:'Initiated by students',c:'#E24B4A'},{n:'$6.20',l:'Cost per student',sub:'At 10-school scale',c:'#185FA5'}].forEach(function(s){
+      h+='<div class="mc"><div class="mb" style="color:'+s.c+'">'+s.n+'</div><div class="mlab">'+s.l+'</div><div class="msub">'+s.sub+'</div></div>';
+    });
+    h+='</div>';
+
+    h+='<div class="sl">Dashboard view 2 — KPI tracker (pre projection vs post actual)</div>';
+    h+='<div class="tw"><table><thead><tr><th>KPI</th><th>Pre target</th><th>Post actual</th><th>Status</th><th>Tier</th></tr></thead><tbody>';
+    [['Students climate-educated','8,000','8,247','Exceeded ✓','T1'],
+     ['Teachers certified','450','423','Near target','T1'],
+     ['Knowledge gain — climate science','35%+','41%','Exceeded ✓','T1'],
+     ['Knowledge gain — SDGs','30%+','35%','Exceeded ✓','T1'],
+     ['Knowledge gain — global citizenship','30%+','33%','On target ✓','T1'],
+     ['Countries represented','3+','5','Exceeded ✓','T1'],
+     ['Student behaviour change (survey)','50%','Pending — Day 50','—','T2'],
+     ['Teacher curriculum integration','60%','Pending — Day 90','—','T2'],
+     ['Schools embedding permanently','—','Pending Year 1','—','T3'],
+     ['Energy reduction at school','30%','Pending data','—','T3'],
+    ].forEach(function(r){
+      var sc=r[3].includes('✓')?'#0F6E56':r[3].includes('Near')?'#185FA5':r[3]==='—'?'#888':'#BA7517';
+      h+='<tr><td style="font-weight:500">'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td style="color:'+sc+'">'+r[3]+'</td><td><span style="font-size:10px;background:var(--color-background-secondary);padding:2px 6px;border-radius:3px">'+r[4]+'</span></td></tr>';
+    });
+    h+='</tbody></table></div>';
+
+    h+='<div class="sl">Dashboard view 3 — government projection (scale case)</div>';
+    h+='<div class="tw"><table><thead><tr><th>Year</th><th>Schools</th><th>Students/yr</th><th>Teachers (cumul)</th><th>10-yr pipeline</th><th>Families reached</th><th>Countries</th></tr></thead><tbody>';
+    [['Yr 1 — Pilot','10','8,000','450','—','32,000','3–5'],
+     ['Yr 2','50','40,000','2,250','80,000','160,000','8–10'],
+     ['Yr 3','200','160,000','9,000','320,000','640,000','15–20'],
+     ['Yr 5','1,000','800,000','45,000','1.6 million','3.2 million','30+'],
+     ['Yr 10','10,000+','8 million+','450,000+','16 million+','32 million+','50+'],
+    ].forEach(function(r,i){
+      var bold=i===4?'font-weight:500;color:#0F6E56':'';
+      h+='<tr style="'+bold+'">';r.forEach(function(c){h+='<td>'+c+'</td>';});h+='</tr>';
+    });
+    h+='</tbody></table></div>';
+
+    h+='<div class="sl">How to build this dashboard — 3 practical options</div>';
+    h+='<div class="g3">';
+    h+='<div class="cell"><div class="cl">Option 1 — Pilot (now, free)</div><div class="cv">Google Looker Studio</div><div class="csub">Connect to Google Sheets. Schools enter data. Dashboard auto-updates. Share as live link with funders. Build in 1 day. Cost: £0.</div><span class="tag tp1">Start here</span></div>';
+    h+='<div class="cell"><div class="cl">Option 2 — Phase 2 (£20/month)</div><div class="cv">Airtable + Softr</div><div class="csub">Airtable collects quiz scores, projects, teacher data per school. Softr turns it into a public-facing dashboard. Multi-school, multi-country, filterable by funder.</div><span class="tag tp2">50+ schools</span></div>';
+    h+='<div class="cell"><div class="cl">Option 3 — Full product</div><div class="cv">Built into globefromhome.com</div><div class="csub">Each school sees their own dashboard. Funders see aggregate. Governments see country-level view. Feeds the credential pathway automatically.</div><span class="tag tp3">Government contracts</span></div>';
+    h+='</div>';
+
+    h+='<div class="sl">What data flows into the dashboard — collection points</div>';
+    h+='<div class="g4">';
+    [{l:'Day 1',v:'Pre-quiz score per student. Enrolment data: school, country, grade, gender.'},{l:'Day 20',v:'Post-quiz score. Completion. Teacher certification. Social action projects initiated.'},{l:'Day 50',v:'30-day survey: behaviour change, family cascade, teacher integration.'},{l:'Day 110',v:'90-day survey: projects completed, school initiatives, green career intent.'}].forEach(function(s){
+      h+='<div class="cell"><div class="cl">'+s.l+'</div><div class="cv" style="font-size:12px">'+s.v+'</div></div>';
+    });
+    h+='</div>';
+  }
+
+  document.getElementById('content').innerHTML = h;
+}
+go('problem',document.querySelector('.tab.on'));
+</script>

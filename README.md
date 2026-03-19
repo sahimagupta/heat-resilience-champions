@@ -17,7 +17,7 @@ A complete, open-source impact measurement framework for heat resilience program
 |--------|----------|
 | `data/` | 9 CSV datasets + 1 JSON calculator covering mortality, economics, workers, children, urban heat, solutions, and projections |
 | `docs/` | KPI framework (8 pillars, 46 indicators), pre/post metrics brief, bibliography, city profiles, research questions |
-| `dashboards/` | Two self-contained HTML dashboards — a data explorer and an interactive impact calculator |
+| `dashboards/` | Five self-contained HTML dashboards — data explorer, impact calculator, K-12 climate education framework, climate schools pre-discussion, and K-12 heat resilience dashboard |
 
 ## Key Numbers at a Glance
 
@@ -44,7 +44,10 @@ cd heat-resilience-champions/data
 ### For Trainers & Facilitators
 1. Open `dashboards/index.html` in any browser — no server needed
 2. Use `dashboards/impact_calculator.html` to model programme outcomes
-3. Pull discussion questions from `docs/questions_bank.md`
+3. Use `dashboards/k12_climate_education_impact_framework.html` for K-12 programme design
+4. Use `dashboards/climate_schools_prediscussion_dashboard.html` for pre-workshop data briefing
+5. Use `dashboards/k12_heat_resilience_impact_dashboard.html` for heat resilience KPIs and multiplier tracking
+6. Pull discussion questions from `docs/questions_bank.md`
 
 ### For Funders & Decision-Makers
 1. Review `data/economy_impact.csv` for the economic case

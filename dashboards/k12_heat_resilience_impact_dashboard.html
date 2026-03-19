@@ -1,0 +1,360 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);color:var(--color-text-primary)}
+.wrap{padding:1rem 0}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.tab{font-size:11px;font-weight:500;padding:5px 14px;border-radius:20px;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:none;color:var(--color-text-secondary)}
+.tab.on{background:#1F3864;color:#fff;border-color:#1F3864}
+.section-label{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-tertiary);margin:16px 0 8px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:13px 16px;margin-bottom:10px}
+.card-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:5px}
+.card-sub{font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cell{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:9px 12px}
+.cell-label{font-size:11px;color:var(--color-text-tertiary);margin-bottom:3px}
+.cell-val{font-size:13px;font-weight:500;color:var(--color-text-primary);line-height:1.4}
+.cell-sub{font-size:11px;color:var(--color-text-secondary);margin-top:2px;line-height:1.4}
+.tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 7px;border-radius:3px;margin-top:4px}
+.tag-pre{background:#E6F1FB;color:#0C447C}
+.tag-post1{background:#EAF3DE;color:#27500A}
+.tag-post2{background:#FAEEDA;color:#633806}
+.tag-post3{background:#EEEDFE;color:#3C3489}
+.tag-funder{background:#FCEBEB;color:#A32D2D}
+.tag-gov{background:#F0FFF0;color:#1B5E20}
+.hero-num{font-size:32px;font-weight:500;line-height:1.1}
+.hero-label{font-size:11px;color:var(--color-text-secondary);margin-top:3px;line-height:1.4}
+.multiplier-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:6px;align-items:center;margin:12px 0}
+.mf-box{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;text-align:center}
+.mf-num{font-size:18px;font-weight:500}
+.mf-label{font-size:10px;color:var(--color-text-secondary);margin-top:2px;line-height:1.3}
+.mf-arrow{font-size:18px;color:var(--color-text-tertiary);align-self:center;text-align:center}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:14px 0}
+.tbl-wrap{overflow-x:auto;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead tr{background:var(--color-background-secondary)}
+th{text-align:left;font-size:11px;font-weight:500;color:var(--color-text-secondary);padding:8px 10px;border-bottom:0.5px solid var(--color-border-tertiary);white-space:nowrap}
+td{padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:top;font-size:11px;line-height:1.4}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--color-background-secondary)}
+.dash-header{background:#1F3864;border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:14px}
+.dash-title{font-size:16px;font-weight:500;color:#fff;margin-bottom:3px}
+.dash-sub{font-size:11px;color:#9DC3E6}
+.metric-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 14px;text-align:center}
+.metric-big{font-size:26px;font-weight:500}
+.metric-lbl{font-size:11px;color:var(--color-text-secondary);margin-top:3px;line-height:1.3}
+.metric-sub{font-size:10px;color:var(--color-text-tertiary);margin-top:2px}
+.progress-bar{height:6px;border-radius:3px;background:var(--color-background-secondary);margin-top:6px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px}
+.funder-card{border-left:3px solid transparent;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 14px;margin-bottom:8px}
+.funder-name{font-size:13px;font-weight:500;margin-bottom:4px}
+.funder-text{font-size:12px;color:var(--color-text-secondary);line-height:1.5;margin-bottom:5px}
+.funder-kpis{font-size:11px;color:var(--color-text-secondary);font-style:italic}
+</style>
+
+<div class="wrap">
+<div class="tabs">
+  <button class="tab on" onclick="showTab('overview',this)">Overview</button>
+  <button class="tab" onclick="showTab('multiplier',this)">Multiplier effect</button>
+  <button class="tab" onclick="showTab('kpis',this)">Pre & post KPIs</button>
+  <button class="tab" onclick="showTab('funders',this)">Funders & govt</button>
+  <button class="tab" onclick="showTab('dashboard',this)">Dashboard design</button>
+</div>
+<div id="tab-content"></div>
+</div>
+
+<script>
+function showTab(tab, btn) {
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('on')});
+  btn.classList.add('on');
+  var html = '';
+
+  if (tab === 'overview') {
+    html += '<div class="dash-header"><div class="dash-title">Globe From Home — Level 1 K-12 Heat Resilience</div><div class="dash-sub">The multiplier that makes Heat Resilience Champions exponentially scalable. Every school = students + teachers + families + community.</div></div>';
+
+    html += '<div class="section-label">What Level 1 K-12 delivers — the product</div>';
+    html += '<div class="grid3">';
+    html += '<div class="cell"><div class="cell-label">What it is</div><div class="cell-val">Climate & Sustainability Foundation embedded into K-12 schools</div><div class="cell-sub">Source-based, live virtual learning. Heat resilience as core curriculum. Module 2 = the heat module.</div></div>';
+    html += '<div class="cell"><div class="cell-label">Who it reaches</div><div class="cell-val">Students, teachers, schools, families — and through them, communities</div><div class="cell-sub">Each trained student becomes a heat-aware community member. Each trained teacher becomes a multiplier for years.</div></div>';
+    html += '<div class="cell"><div class="cell-label">Why it scales</div><div class="cell-val">One school = 400–1,200 students + 30–80 teachers — all reached in one course delivery</div><div class="cell-sub">No per-student cost after onboarding. Unlimited classroom attendees. Multiplier is built in.</div></div>';
+    html += '</div>';
+
+    html += '<div class="section-label">The 3-level credential pathway — how K-12 feeds everything</div>';
+    html += '<div class="card"><div class="card-title">Level 1 → Level 2 → Level 3 pipeline</div><div class="card-sub">K-12 students who complete Level 1 become the pipeline for Level 2 green skills credentials (higher education / workforce) and Level 3 climate adaptation programmes (like Heat Resilience Champions). Every Level 1 student is a potential Level 3 task force member.</div></div>';
+
+    html += '<div class="section-label">The core argument for funders</div>';
+    html += '<div class="grid2">';
+    html += '<div class="cell"><div class="cell-label">Without Level 1 K-12</div><div class="cell-val">Heat resilience knowledge starts at Level 3 — training adults with no prior foundation</div><div class="cell-sub">Slower. More expensive. Less retained. Communities have no baseline heat awareness.</div><span class="tag tag-funder">Higher cost per outcome</span></div>';
+    html += '<div class="cell"><div class="cell-label">With Level 1 K-12</div><div class="cell-val">Students arrive at Level 3 with heat literacy, systems thinking, and global awareness already built</div><div class="cell-sub">Faster onboarding. Deeper learning. Each school creates a community of informed citizens before any crisis occurs.</div><span class="tag tag-post1">Lower cost, higher impact</span></div>';
+    html += '</div>';
+
+    html += '<div class="section-label">Scale numbers — what one school partnership produces</div>';
+    html += '<div class="grid4" style="margin-top:4px">';
+    var overviewStats = [
+      {n:'800', l:'average students per school reached per year', c:'#E24B4A'},
+      {n:'45', l:'teachers climate-educated per school per cohort', c:'#BA7517'},
+      {n:'3,200', l:'family members reached via student cascade', c:'#185FA5'},
+      {n:'10 yrs', l:'each teacher multiplies impact for decade+', c:'#639922'},
+    ];
+    overviewStats.forEach(function(s){
+      html += '<div class="metric-card"><div class="metric-big" style="color:'+s.c+'">'+s.n+'</div><div class="metric-lbl">'+s.l+'</div></div>';
+    });
+    html += '</div>';
+  }
+
+  if (tab === 'multiplier') {
+    html += '<div class="section-label">The multiplier chain — one course, exponential reach</div>';
+    html += '<div class="card"><div class="card-title">How the multiplier works</div><div class="card-sub">The K-12 multiplier is fundamentally different from adult training. A trained adult reaches ~50 people. A trained teacher reaches ~30 students per class, 5 classes per year, for 10+ years. A trained school reaches its entire community for a generation.</div></div>';
+
+    html += '<div class="section-label">Visual multiplier chain — 1 school delivery</div>';
+    html += '<div class="multiplier-flow">';
+    var chain = [
+      {n:'1', l:'School'},
+      {n:'45', l:'Teachers trained'},
+      {n:'800', l:'Students per yr'},
+      {n:'13,500', l:'Cascade over 10yr career'},
+    ];
+    chain.forEach(function(c, i){
+      html += '<div class="mf-box"><div class="mf-num" style="color:#1F3864">'+c.n+'</div><div class="mf-label">'+c.l+'</div></div>';
+      if (i < chain.length-1) html += '<div class="mf-arrow">→</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="multiplier-flow">';
+    var chain2 = [
+      {n:'800', l:'Students'},
+      {n:'3,200', l:'Family members (×4)'},
+      {n:'16,000', l:'Peers & community (×5)'},
+      {n:'~20K', l:'Total community reach'},
+    ];
+    chain2.forEach(function(c, i){
+      html += '<div class="mf-box"><div class="mf-num" style="color:#BA7517">'+c.n+'</div><div class="mf-label">'+c.l+'</div></div>';
+      if (i < chain2.length-1) html += '<div class="mf-arrow">→</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="section-label">Scale scenarios — projected data</div>';
+    html += '<div class="tbl-wrap"><table>';
+    html += '<thead><tr><th>Scenario</th><th>Schools</th><th>Students/yr</th><th>Teachers trained</th><th>Family reach</th><th>10-yr student total</th><th>Community reach</th></tr></thead><tbody>';
+    var scenarios = [
+      ['Pilot (yr 1)','10','8,000','450','32,000','80,000','~160,000'],
+      ['Phase 2 (yr 2–3)','100','80,000','4,500','320,000','800,000','~1.6M'],
+      ['National (yr 4–5)','1,000','800,000','45,000','3.2M','8M','~16M'],
+      ['Global scale','10,000+','8M+','450,000+','32M+','80M+','~160M+'],
+    ];
+    scenarios.forEach(function(r, i){
+      html += '<tr>';
+      r.forEach(function(c, ci){
+        var style = i === 3 ? 'font-weight:500;color:#1F3864' : '';
+        html += '<td style="'+style+'">'+c+'</td>';
+      });
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+
+    html += '<div class="section-label">The teacher multiplier — why it compounds</div>';
+    html += '<div class="grid3">';
+    html += '<div class="cell"><div class="cell-label">Year 1</div><div class="cell-val">Teacher trained. Delivers heat module to 150 students across 5 classes.</div><div class="cell-sub">Immediate reach: 150 students</div></div>';
+    html += '<div class="cell"><div class="cell-label">Years 2–5</div><div class="cell-val">Same teacher delivers same module annually. No re-training cost. Builds on experience.</div><div class="cell-sub">Cumulative reach: 600+ students</div></div>';
+    html += '<div class="cell"><div class="cell-label">Years 6–10</div><div class="cell-val">Teacher now mentors other teachers. School embeds heat module into curriculum permanently.</div><div class="cell-sub">Cumulative reach: 1,500+ students — for one initial training</div></div>';
+    html += '</div>';
+
+    html += '<div class="section-label">The Heat Resilience Champions pipeline — how Level 1 feeds Level 3</div>';
+    html += '<div class="card"><div class="card-title">Level 1 K-12 as the pipeline for Heat Resilience Champions</div><div class="card-sub">Level 1 students graduate with climate literacy and heat awareness. At 18+ they are eligible for Level 3 Heat Resilience Champions certification — arriving with foundational knowledge already built. Pre-screening costs drop. Knowledge gain scores start higher. Deployment rates are higher because purpose and motivation were seeded at school. This is the pipeline funders and governments want to see: education that creates workforce.</div></div>';
+  }
+
+  if (tab === 'kpis') {
+    html += '<div class="section-label">K-12 Level 1 — Pre KPIs (before course runs)</div>';
+    html += '<div class="tbl-wrap"><table>';
+    html += '<thead><tr><th>ID</th><th>KPI</th><th>Unit</th><th>Pre target</th><th>Benchmark source</th><th>Type</th></tr></thead><tbody>';
+    var preKPIs = [
+      ['K1-P01','Schools enrolled','Count','10 schools in pilot','Globe From Home sales pipeline','<span class="tag tag-pre">PRE</span>'],
+      ['K1-P02','Students enrolled','Count','8,000 students across 10 schools','Average 800 students/school — UNESCO','<span class="tag tag-pre">PRE</span>'],
+      ['K1-P03','Teachers enrolled','Count','450 teachers across 10 schools','Average 45 teachers/school','<span class="tag tag-pre">PRE</span>'],
+      ['K1-P04','Countries represented','Count','Minimum 3 countries in pilot','Globe From Home programme design','<span class="tag tag-pre">PRE</span>'],
+      ['K1-P05','Baseline heat knowledge score','0–100','Score captured Day 1 — no target (zero point)','Lemery et al. 4-domain competency model','<span class="tag tag-pre">PRE</span>'],
+      ['K1-P06','Projected knowledge gain','% improvement','Minimum 35% gain across cohort','CDC BRACE; comparable climate education programmes','<span class="tag tag-pre">PRE</span>'],
+      ['K1-P07','Projected family cascade','Count','3,200 family members per 800-student school','×4 family members per student — UNESCO household data','<span class="tag tag-pre">PRE</span>'],
+      ['K1-P08','Projected Heat Resilience Champion pipeline','Count','5% of 18+ students progress to Level 3 within 2 years','Globe From Home Level 1 → 3 progression model','<span class="tag tag-pre">PRE</span>'],
+      ['K1-P09','Projected CO₂ avoided from cool roof projects','Tonnes/yr','50 m² per school × 2.5 kg CO₂/m²/yr × 10 schools','Project Drawdown cool roofs model','<span class="tag tag-pre">PRE</span>'],
+      ['K1-P10','Cost per student climate-educated','USD','$5–15 per student at scale','Comparable climate education programmes','<span class="tag tag-pre">PRE</span>'],
+    ];
+    preKPIs.forEach(function(r){
+      html += '<tr><td>'+r[0]+'</td><td style="font-weight:500">'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[4]+'</td><td>'+r[5]+'</td></tr>';
+    });
+    html += '</tbody></table></div>';
+
+    html += '<div class="section-label">Post KPIs — Tier 1 (end of course, Days 1–20)</div>';
+    html += '<div class="tbl-wrap"><table>';
+    html += '<thead><tr><th>ID</th><th>KPI</th><th>Unit</th><th>How collected</th><th>What it proves</th><th>Type</th></tr></thead><tbody>';
+    var post1KPIs = [
+      ['K1-T1-01','Completion rate','%','Admin records','Programme was delivered and attended'],
+      ['K1-T1-02','Knowledge gain score','% delta','Pre Day 1 + post Day 20 quiz','Learning actually happened'],
+      ['K1-T1-03','Knowledge gain by domain','% per domain','Quiz domain breakdown','Heat, first aid, cool roofs, advocacy — 4 domains'],
+      ['K1-T1-04','Teachers certified','Count','Admin records','Teachers can now deliver this independently'],
+      ['K1-T1-05','School heat maps completed','Count','Day 8 workshop log','Schools have actionable resilience data'],
+      ['K1-T1-06','Cool roof m² applied during course','m²','Workshop log','Physical community impact — during the course'],
+      ['K1-T1-07','Urban gardens planted','m²','Day 6 workshop log','Green infrastructure created in schools'],
+      ['K1-T1-08','Advocacy materials produced','Count','Day 10 workshop log','Students are active communicators, not passive learners'],
+    ];
+    post1KPIs.forEach(function(r){
+      html += '<tr><td>'+r[0]+'</td><td style="font-weight:500">'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[4]+'</td><td><span class="tag tag-post1">POST T1</span></td></tr>';
+    });
+    html += '</tbody></table></div>';
+
+    html += '<div class="section-label">Post KPIs — Tier 2 (30–90 days, survey-based)</div>';
+    html += '<div class="tbl-wrap"><table>';
+    html += '<thead><tr><th>ID</th><th>KPI</th><th>Unit</th><th>Survey question</th><th>Target</th><th>Type</th></tr></thead><tbody>';
+    var post2KPIs = [
+      ['K1-T2-01','Behaviour change — students','%','Have you changed any home heat practices since the course?','50% report at least 1 change'],
+      ['K1-T2-02','Family cascade — heat awareness','Count','How many family members have you shared heat safety knowledge with?','Minimum 3 per student = 2,400 per 800-student school'],
+      ['K1-T2-03','Teacher curriculum integration','%','Have you integrated heat resilience content into regular lessons?','60% of teachers deliver at least 1 follow-up lesson'],
+      ['K1-T2-04','School interventions adopted','Count','Did your school implement any heat resilience changes from the plan?','40% of schools adopt 1 intervention within 90 days'],
+      ['K1-T2-05','Cool roof projects post-course','Count + m²','Did students or teachers lead a community cool roof project?','1 project per 5 schools in pilot'],
+      ['K1-T2-06','Students expressing career interest in green skills','%','Are you considering a career in climate, sustainability or green skills?','Minimum 20% positive intent — feeds Level 2/3 pipeline'],
+    ];
+    post2KPIs.forEach(function(r){
+      html += '<tr><td>'+r[0]+'</td><td style="font-weight:500">'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[4]+'</td><td><span class="tag tag-post2">POST T2</span></td></tr>';
+    });
+    html += '</tbody></table></div>';
+
+    html += '<div class="section-label">Post KPIs — Tier 3 (long-term, 1–2 years)</div>';
+    html += '<div class="tbl-wrap"><table>';
+    html += '<thead><tr><th>ID</th><th>KPI</th><th>Unit</th><th>How measured</th><th>Partner needed</th><th>Type</th></tr></thead><tbody>';
+    var post3KPIs = [
+      ['K1-T3-01','Students progressing to Level 2 credentials','Count','Globe From Home enrolment records','None — internal data'],
+      ['K1-T3-02','Students progressing to Level 3 (Heat Resilience Champions)','Count','Globe From Home enrolment + age filter','None — internal data'],
+      ['K1-T3-03','Schools embedding heat module in permanent curriculum','Count','School management follow-up at 12 months','School leadership partner'],
+      ['K1-T3-04','Community heat incidents responded to by student alumni','Count','Follow-up survey at 18 months (18+ graduates)','None — survey-based'],
+      ['K1-T3-05','Total CO₂ avoided — cumulative school projects','Tonnes','Cool roof m² × CO₂ factor × years active','Project Drawdown methodology'],
+      ['K1-T3-06','Government adoption of programme in national curriculum','Count of countries','Policy tracking','Ministry of Education partner'],
+    ];
+    post3KPIs.forEach(function(r){
+      html += '<tr><td>'+r[0]+'</td><td style="font-weight:500">'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td style="font-size:10px;color:var(--color-text-tertiary)">'+r[4]+'</td><td><span class="tag tag-post3">POST T3</span></td></tr>';
+    });
+    html += '</tbody></table></div>';
+  }
+
+  if (tab === 'funders') {
+    html += '<div class="section-label">Target funders — what each wants to see</div>';
+
+    var funders = [
+      {name:'Governments / Ministries of Education', color:'#1B5E20', type:'gov',
+       why:'Building a climate-literate generation is a national policy priority. K-12 is the most cost-effective point of intervention.',
+       kpis:'Number of students climate-educated, number of teachers trained, schools embedding in curriculum, cost per student, Level 3 pipeline (workforce ready graduates)',
+       hook:'"200 million children lose school days to heat every year. Your ministry has no certified programme to respond to that. We do."'},
+      {name:'Governments / Ministries of Health', color:'#0C447C', type:'gov',
+       why:'Heat resilience training in schools reduces heat illness incidents and builds community first-responder capacity.',
+       kpis:'Heat incidents responded to by student alumni, vulnerable people reached, hospital referrals, cool roof temperature reductions in schools',
+       hook:'"A school with a Heat Resilience Champion is a school where a trained person recognises heat stroke. That costs less than one ER admission."'},
+      {name:'UK-German Connection / British Council', color:'#8B0000', type:'funder',
+       why:'International education partnerships, global citizenship, cross-cultural learning.',
+       kpis:'Countries represented, students connecting across borders, teachers certified, languages delivered in',
+       hook:'"Level 1 K-12 is the only programme where a student in Ahmedabad and a student in Birmingham learn heat resilience together in real time."'},
+      {name:'Columbia Climate School / Academic Partners', color:'#534AB7', type:'funder',
+       why:'Research, data generation, curriculum validation, and academic credibility.',
+       kpis:'Knowledge gain scores (publishable), pre/post assessment data, behaviour change data, Level 1 → Level 3 pipeline progression rates',
+       hook:'"We will generate the first peer-reviewed dataset on K-12 heat resilience education outcomes. You will co-author it."'},
+      {name:'Adrienne Arsht-Rockefeller Foundation', color:'#BA7517', type:'funder',
+       why:'Heat resilience is their core mandate. 200M children losing school days is their primary K-12 metric.',
+       kpis:'Schools heat-mapped, cool roofs on schools, school interventions adopted, children directly protected, 200M school day loss mitigation evidence',
+       hook:'"200 million children lose school days to heat. You fund heat resilience at city scale. We deliver it at school scale — inside the classroom."'},
+      {name:'ILO / Future Earth / Green Jobs Funders', color:'#185FA5', type:'funder',
+       why:'K-12 heat education creates the next generation green workforce. Level 1 is the entry point to a green career pathway.',
+       kpis:'Students expressing green career intent, Level 2/3 progression, certified graduates entering green employment, cost per green worker trained',
+       hook:'"Every student who completes Level 1 is a potential Heat Resilience Champion. Every Heat Resilience Champion is a certified green worker. K-12 is the beginning of that pipeline."'},
+    ];
+
+    funders.forEach(function(f){
+      html += '<div class="funder-card" style="border-left-color:'+f.color+'">';
+      html += '<div class="funder-name" style="color:'+f.color+'">'+f.name+'</div>';
+      if(f.type==='gov') html += '<span class="tag tag-gov">Government</span> ';
+      else html += '<span class="tag tag-funder">Funder</span> ';
+      html += '<div style="height:6px"></div>';
+      html += '<div class="funder-text"><strong>Why they fund this:</strong> '+f.why+'</div>';
+      html += '<div class="funder-text"><strong>KPIs they want to see:</strong> '+f.kpis+'</div>';
+      html += '<div class="funder-kpis"><strong>The pitch hook:</strong> "'+f.hook+'"</div>';
+      html += '</div>';
+    });
+  }
+
+  if (tab === 'dashboard') {
+    html += '<div class="dash-header"><div class="dash-title">Globe From Home — K-12 Heat Resilience Dashboard</div><div class="dash-sub">Live impact tracker for funders, governments, and school partners. Updates with each cohort. Three views: programme, school, and funder.</div></div>';
+
+    html += '<div class="section-label">Dashboard view 1 — programme overview (funder-facing)</div>';
+    html += '<div class="grid4" style="margin-bottom:12px">';
+    var d1 = [
+      {n:'10', l:'Schools enrolled', sub:'Pilot cohort', c:'#1F3864'},
+      {n:'8,000', l:'Students climate-educated', sub:'This cohort', c:'#E24B4A'},
+      {n:'450', l:'Teachers certified', sub:'Multiplier for 10+ yrs', c:'#BA7517'},
+      {n:'32,000', l:'Family members reached', sub:'Via student cascade ×4', c:'#185FA5'},
+    ];
+    d1.forEach(function(s){
+      html += '<div class="metric-card"><div class="metric-big" style="color:'+s.c+'">'+s.n+'</div><div class="metric-lbl">'+s.l+'</div><div class="metric-sub">'+s.sub+'</div></div>';
+    });
+    html += '</div>';
+
+    html += '<div class="grid4" style="margin-bottom:14px">';
+    var d2 = [
+      {n:'38%', l:'Avg knowledge gain', sub:'Pre → post quiz delta', c:'#639922'},
+      {n:'62', l:'School heat maps done', sub:'Schools with resilience plans', c:'#534AB7'},
+      {n:'500m²', l:'Cool roof area painted', sub:'During course workshops', c:'#BA7517'},
+      {n:'~1.25t', l:'CO₂ avoided/yr', sub:'Project Drawdown formula', c:'#639922'},
+    ];
+    d2.forEach(function(s){
+      html += '<div class="metric-card"><div class="metric-big" style="color:'+s.c+'">'+s.n+'</div><div class="metric-lbl">'+s.l+'</div><div class="metric-sub">'+s.sub+'</div></div>';
+    });
+    html += '</div>';
+
+    html += '<div class="section-label">Dashboard view 2 — KPI tracker (pre vs post)</div>';
+    html += '<div class="tbl-wrap"><table>';
+    html += '<thead><tr><th>KPI</th><th>Pre target</th><th>Post actual</th><th>Status</th><th>Tier</th></tr></thead><tbody>';
+    var tracker = [
+      ['Students climate-educated','8,000','8,247','On track ✓','T1'],
+      ['Teachers certified','450','423','Near target','T1'],
+      ['Knowledge gain score','35% avg','38% avg','Exceeded ✓','T1'],
+      ['School heat maps completed','10','7','In progress','T1'],
+      ['Family members reached (survey)','3,200','2,890','Near target','T2'],
+      ['Teacher curriculum integration','60%','Pending 90-day survey','—','T2'],
+      ['Students → Level 3 pipeline','5% (400)','Tracking from yr 2','—','T3'],
+      ['CO₂ avoided (cool roofs)','1.25 t/yr','1.25 t/yr (calculated)','Verified ✓','T1/Calc'],
+    ];
+    tracker.forEach(function(r){
+      var statusColor = r[3].includes('✓') ? '#27500A' : r[3].includes('Pending') || r[3] === '—' ? '#633806' : '#0C447C';
+      html += '<tr><td style="font-weight:500">'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td style="color:'+statusColor+'">'+r[3]+'</td><td><span style="font-size:10px;background:var(--color-background-secondary);padding:2px 6px;border-radius:3px">'+r[4]+'</span></td></tr>';
+    });
+    html += '</tbody></table></div>';
+
+    html += '<div class="section-label">Dashboard view 3 — multiplier projection (government-facing)</div>';
+    html += '<div class="tbl-wrap"><table>';
+    html += '<thead><tr><th>Year</th><th>Schools</th><th>Students/yr</th><th>Teachers trained (cumulative)</th><th>10-yr student pipeline</th><th>Level 3 potential champions</th><th>CO₂ avoided (t/yr)</th></tr></thead><tbody>';
+    var proj = [
+      ['Year 1 (pilot)','10','8,000','450','—','400','1.25'],
+      ['Year 2','50','40,000','2,250','80,000','4,000','6.25'],
+      ['Year 3','200','160,000','9,000','320,000','16,000','25'],
+      ['Year 5','1,000','800,000','45,000','1.6M','80,000','125'],
+      ['Year 10','10,000+','8M+','450,000+','16M+','800,000+','1,250+'],
+    ];
+    proj.forEach(function(r, i){
+      var bold = i === 4 ? 'font-weight:500;color:#1F3864' : '';
+      html += '<tr style="'+bold+'">';
+      r.forEach(function(c){ html += '<td>'+c+'</td>'; });
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+
+    html += '<div class="section-label">How to build this dashboard — 3 options</div>';
+    html += '<div class="grid3">';
+    html += '<div class="cell"><div class="cell-label">Option 1 — Simple (now)</div><div class="cell-val">Google Data Studio / Looker Studio</div><div class="cell-sub">Free. Connects to Google Sheets. Auto-updates when you update the sheet. Live link for funders. Build in 1 day.</div><span class="tag tag-post1">Recommended for pilot</span></div>';
+    html += '<div class="cell"><div class="cell-label">Option 2 — Medium (Phase 2)</div><div class="cell-val">Airtable + dashboard embed</div><div class="cell-sub">Airtable collects data from schools. Dashboard auto-generates from it. Handles multi-school, multi-country. $20/month.</div><span class="tag tag-post2">Recommended for 50+ schools</span></div>';
+    html += '<div class="cell"><div class="cell-label">Option 3 — Full product</div><div class="cell-val">Custom dashboard in Globe From Home platform</div><div class="cell-sub">Embedded in globefromhome.com. Each school sees their own data. Funders see aggregate. Governments see country view.</div><span class="tag tag-post3">Recommended for govt contracts</span></div>';
+    html += '</div>';
+  }
+
+  document.getElementById('tab-content').innerHTML = html;
+}
+
+showTab('overview', document.querySelector('.tab.on'));
+</script>
