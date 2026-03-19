@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+:root{--g:#0A3D2E;--g2:#1A7A50;--g3:#9FE1CB;--red:#D63031;--amb:#E17055;--blu:#0984E3;--pur:#6C5CE7;--tel:#00B894;--bg:#F8F9FA;--card:#FFFFFF;--bdr:#E8ECEF;--txt:#1A1A1A;--mut:#666;--lit:#999;--r:10px}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{background:var(--bg);color:var(--txt);font-size:13px;line-height:1.6}
+
+.hdr{background:var(--g);padding:16px 20px;color:#fff}
+.hdr-brand{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g3);margin-bottom:4px}
+.hdr-title{font-size:18px;font-weight:700;margin-bottom:2px}
+.hdr-sub{font-size:11px;color:rgba(255,255,255,.6)}
+.badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.badge{font-size:9px;font-weight:600;padding:2px 8px;border-radius:20px;border:1px solid rgba(255,255,255,.25);color:var(--g3);background:rgba(255,255,255,.08)}
+
+.tabs{background:var(--g);display:flex;gap:0;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.12);overflow-x:auto}
+.tbtn{background:none;border:none;color:rgba(255,255,255,.5);font-size:12px;font-weight:500;padding:10px 14px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.tbtn:hover{color:rgba(255,255,255,.85)}
+.tbtn.on{color:#fff;border-bottom-color:var(--g3)}
+
+.main{padding:18px 20px 40px;max-width:900px;margin:0 auto}
+.panel{display:none}.panel.on{display:block}
+
+.sl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin:20px 0 10px}
+.sl:first-child{margin-top:0}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+
+.sc{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px 16px;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.sc.red::before{background:var(--red)}.sc.amb::before{background:var(--amb)}.sc.blu::before{background:var(--blu)}.sc.grn::before{background:var(--tel)}.sc.pur::before{background:var(--pur)}.sc.dk::before{background:var(--g)}
+.sn{font-size:24px;font-weight:700;line-height:1.1;margin-bottom:3px}
+.slb{font-size:11px;color:var(--mut);line-height:1.4;margin-bottom:4px}
+.ss{font-size:9px;color:var(--lit);font-style:italic}
+.ss a{color:var(--lit)}
+
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:10px}
+.ct{font-size:13px;font-weight:600;margin-bottom:6px}
+.cb{font-size:12px;color:var(--mut);line-height:1.7}
+
+.hl{background:linear-gradient(135deg,var(--g),var(--g2));border-radius:var(--r);padding:16px 18px;color:#fff;margin-bottom:16px}
+.hlq{font-size:14px;font-weight:600;line-height:1.5;margin-bottom:4px}
+.hls{font-size:11px;color:rgba(255,255,255,.65)}
+
+/* experts */
+.eq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.eq-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.06);border-top:3px solid var(--g)}
+.eq-name{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:2px}
+.eq-role{font-size:11px;color:var(--g2);font-weight:600;margin-bottom:2px}
+.eq-inst{font-size:10px;color:var(--mut);margin-bottom:10px}
+.eq-quote{background:#F0FFF8;border-left:3px solid var(--g2);padding:10px 12px;border-radius:0 6px 6px 0;font-size:12px;color:#1A3D2E;font-style:italic;line-height:1.6;margin-bottom:10px}
+.eq-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.eq-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;background:#E1F5EE;color:#0F6E56}
+.eq-link{font-size:10px;color:var(--g2);text-decoration:none;font-weight:600}
+.eq-link:hover{text-decoration:underline}
+
+/* solutions */
+.sol{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:10px}
+.sol-ico{font-size:22px;margin-bottom:6px}
+.sol-t{font-size:13px;font-weight:700;margin-bottom:4px}
+.sol-w{font-size:11px;color:var(--mut);margin-bottom:8px;line-height:1.6}
+.sol-ev{background:#F0FFF8;border:1px solid #C0EDD6;border-radius:6px;padding:8px 10px;margin-bottom:8px}
+.sol-evl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--g2);margin-bottom:3px}
+.sol-evt{font-size:11px;color:#1A3D2E;line-height:1.5}
+.pills{display:flex;flex-wrap:wrap;gap:5px}
+.pill{font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;background:#E1F5EE;color:#0F6E56}
+
+/* impact */
+.hero-g{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+.hero-c{background:var(--g);border-radius:var(--r);padding:14px 10px;text-align:center;color:#fff}
+.hero-n{font-size:22px;font-weight:700;color:var(--g3);margin-bottom:3px}
+.hero-l{font-size:10px;color:rgba(255,255,255,.7);line-height:1.4}
+.it{width:100%;border-collapse:collapse;font-size:12px}
+.it th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);padding:8px 10px;border-bottom:2px solid var(--bdr)}
+.it td{padding:8px 10px;border-bottom:1px solid var(--bdr);vertical-align:top}
+.it tr:last-child td{border-bottom:none}
+.it tr:nth-child(even) td{background:#FAFAFA}
+
+/* ba */
+.ba-g{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ba-c{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ba-t{font-size:12px;font-weight:600;margin-bottom:10px}
+.ba-r{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.ba-lab{font-size:10px;color:var(--mut);width:38px;flex-shrink:0}
+.ba-bw{flex:1}
+.ba-bar{height:7px;border-radius:4px}
+.ba-v{font-size:11px;font-weight:600;width:36px;text-align:right;flex-shrink:0}
+
+/* roi */
+.roi-g{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.roi-c{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.06);text-align:center}
+.roi-n{font-size:26px;font-weight:700;color:var(--g2);margin-bottom:3px}
+.roi-l{font-size:11px;color:var(--mut);line-height:1.4}
+
+/* country */
+.c-hdr{background:var(--g);color:#fff;border-radius:var(--r);padding:16px 18px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.c-name{font-size:18px;font-weight:700}
+.c-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
+.c-status{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(159,225,203,.2);color:var(--g3);border:1px solid rgba(159,225,203,.4)}
+.map-ph{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:30px;text-align:center;color:var(--mut);font-size:12px}
+.map-ico{font-size:36px;margin-bottom:8px}
+
+.stag{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:#FFF3E0;color:#E65100;border:1px solid #FFCC80;margin-bottom:10px}
+.sn2{font-size:10px;color:var(--lit);font-style:italic;margin-top:6px}
+.sn2 a{color:var(--lit)}
+.narr{background:var(--card);border:1px solid var(--bdr);border-left:4px solid var(--g2);border-radius:var(--r);padding:16px 18px;font-size:12px;color:var(--mut);line-height:1.8;margin-bottom:10px}
+.narr strong{color:var(--txt)}
+.narr a{color:var(--g2)}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-brand">Globe From Home</div>
+  <div class="hdr-title">🌡️ Heat Resilience Champions</div>
+  <div class="hdr-sub">Unified Impact Dashboard · 52+ data points · 24 peer-reviewed sources · March 2026</div>
+  <div class="badges">
+    <span class="badge">Harvard Chan School</span>
+    <span class="badge">Lancet Countdown 2025</span>
+    <span class="badge">Nature Medicine 2025</span>
+    <span class="badge">OECD 2026</span>
+    <span class="badge">WHO / UNICEF</span>
+    <span class="badge">World Bank 2024</span>
+    <span class="badge">Project Drawdown</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tbtn on"  onclick="go('case',this)">1 · Case for Action</button>
+  <button class="tbtn" onclick="go('sol',this)">2 · Solutions Evidence</button>
+  <button class="tbtn" onclick="go('imp',this)">3 · Program Impact</button>
+  <button class="tbtn" onclick="go('cty',this)">4 · Country View</button>
+  <button class="tbtn" onclick="go('exp',this)">5 · Expert Panel</button>
+</div>
+
+<div class="main">
+
+<!-- TAB 1 -->
+<div id="p-case" class="panel on">
+  <div class="hl">
+    <div class="hlq">The world's deadliest climate hazard kills more people than floods, storms, and droughts combined — yet fewer than 1 in 10 of the world's largest cities have a heat action plan.</div>
+    <div class="hls">Sources: WHO · Lancet Countdown 2025 · APHA 2025 · Hess et al. 2018</div>
+  </div>
+  <div class="sl">Mortality — the scale of the crisis</div>
+  <div class="g4">
+    <div class="sc red"><div class="sn" style="color:var(--red)">546K</div><div class="slb">Annual heat deaths — up 63% since the 1990s</div><div class="ss">Lancet Countdown 2025</div></div>
+    <div class="sc amb"><div class="sn" style="color:var(--amb)">489K</div><div class="slb">Annual deaths avg 2000–2019. Asia 45%, Europe 36%</div><div class="ss">eClinicalMedicine / Lancet 2024</div></div>
+    <div class="sc red"><div class="sn" style="color:var(--red)">62,775</div><div class="slb">Heat deaths in 32 European countries in summer 2024 alone</div><div class="ss">ISGlobal / Nature Medicine Sep 2025</div></div>
+    <div class="sc amb"><div class="sn" style="color:var(--amb)">+167%</div><div class="slb">Rise in over-65 heat deaths since the 1990s</div><div class="ss">Lancet Countdown 2025</div></div>
+  </div>
+  <div class="sl">Economy & workers</div>
+  <div class="g4">
+    <div class="sc pur"><div class="sn" style="color:var(--pur)">$1.09T</div><div class="slb">Labour productivity lost globally in 2024</div><div class="ss">Lancet Countdown 2025</div></div>
+    <div class="sc amb"><div class="sn" style="color:var(--amb)">$24.7T</div><div class="slb">Projected GDP loss by 2100 — high emissions</div><div class="ss">Zhao et al., Nature 2024</div></div>
+    <div class="sc dk"><div class="sn" style="color:var(--g3)">2.41B</div><div class="slb">Workers exposed to excessive heat — 70% of workforce</div><div class="ss">ILO Jul 2024 / WHO–WMO Aug 2025</div></div>
+    <div class="sc grn"><div class="sn" style="color:var(--tel)">$2–$42</div><div class="slb">Returned per $1 invested in heat adaptation</div><div class="ss">Rockefeller / ClimateWorks 2025</div></div>
+  </div>
+  <div class="sl">Ahmedabad proof — what happens when you act</div>
+  <div class="g3">
+    <div class="sc grn"><div class="sn" style="color:var(--tel)">~1,190</div><div class="slb">Lives saved per year in Ahmedabad since the Heat Action Plan launched in 2013</div><div class="ss">Hess et al. 2018 / Harvard Chan / NRDC</div></div>
+    <div class="sc blu"><div class="sn" style="color:var(--blu)">30</div><div class="slb">Indian cities that have replicated the Ahmedabad model — proof it scales</div><div class="ss">APHA 2025</div></div>
+    <div class="sc red"><div class="sn" style="color:var(--red)">11/100</div><div class="slb">Of the world's 100 largest cities have any heat action plan</div><div class="ss">APHA 2025 / Bishai, U of Hong Kong</div></div>
+  </div>
+  <div class="sl">Children & schools</div>
+  <div class="g2">
+    <div class="sc amb"><div class="sn" style="color:var(--amb)">200M</div><div class="slb">Children lose school days to heat annually</div><div class="ss">Arsht-Rockefeller / Save the Children</div></div>
+    <div class="sc blu"><div class="sn" style="color:var(--blu)">242M</div><div class="slb">Students affected by climate-related school disruptions in 2024 — 1 in 7 worldwide</div><div class="ss">UNICEF 2025 — Learning Interrupted</div></div>
+  </div>
+  <div class="sl">Why this matters</div>
+  <div class="narr">
+    <strong>The institutional momentum behind heat resilience is stronger than it has ever been.</strong> In November 2025, C40 launched the Cool Cities Accelerator with 33 founding cities. At COP30, the Beat the Heat initiative brought 185 cities together. ClimateWorks has a $50 million fund specifically for heat resilience work in South Asia, Southeast Asia, and Sub-Saharan Africa.<br><br>
+    What is missing is a scalable education layer. <strong>That is exactly where <a href="https://globefromhome.com" target="_blank">Globe From Home</a> fits in.</strong>
+  </div>
+</div>
+
+<!-- TAB 2 -->
+<div id="p-sol" class="panel">
+  <div class="hl">
+    <div class="hlq">Six proven, community-deployable interventions — each evidence-backed and structured in the Project Drawdown style.</div>
+    <div class="hls">Each shows: what it is · evidence of effectiveness · expected outcomes</div>
+  </div>
+  <div class="sol"><div class="sol-ico">🆘</div><div class="sol-t">Personal heat response & first aid</div><div class="sol-w">Training individuals to recognise heat illness, apply immediate cooling, identify vulnerable neighbours, activate buddy systems. Day 2 workshop.</div><div class="sol-ev"><div class="sol-evl">Evidence</div><div class="sol-evt">Ahmedabad HAP: ~1,190 lives saved/yr after community health worker training. Europe: up to <strong>80% heat mortality reduction</strong> with structured adaptation (Nature Medicine 2024).</div></div><div class="pills"><span class="pill">–31% heat illness (pilot target)</span><span class="pill">50 people protected per champion</span><span class="pill">1,625 cascade-trained per 500-champion cohort</span></div></div>
+  <div class="sol"><div class="sol-ico">🏚️</div><div class="sol-t">Cool roofs</div><div class="sol-w">Applying white/reflective coatings to rooftops. Reduces indoor temperatures and AC demand. Day 4 workshop.</div><div class="sol-ev"><div class="sol-evl">Evidence</div><div class="sol-evt">EPA Kansas City: 65,000 m² avoided 269 t CO₂/yr (~4.1 kg/m²). Indoor reduction: <strong>2–5°C</strong>. Andalusia: 136,000 t CO₂/yr avoided at scale.</div></div><div class="pills"><span class="pill">–2 to –5°C indoor</span><span class="pill">2.5 kg CO₂/m²/yr (conservative)</span><span class="pill">$12–45/tonne CO₂ at national scale</span></div></div>
+  <div class="sol"><div class="sol-ico">🌿</div><div class="sol-t">Urban gardens & green corridors</div><div class="sol-w">Planting trees and gardens to reduce the urban heat island effect. Day 6 workshop.</div><div class="sol-ev"><div class="sol-evl">Evidence</div><div class="sol-evt">Medellín: 30 green corridors → <strong>–2°C city-wide in 3 years</strong> at $6.50/person — most cost-effective urban cooling documented globally (WEF 2024).</div></div><div class="pills"><span class="pill">–2.1°C ambient (pilot target)</span><span class="pill">$6.50/person benchmark</span></div></div>
+  <div class="sol"><div class="sol-ico">🗺️</div><div class="sol-t">School heat mapping</div><div class="sol-w">Students map temperature hotspots across school buildings and grounds, producing a school resilience plan. Day 8 workshop.</div><div class="sol-ev"><div class="sol-evl">Evidence</div><div class="sol-evt">OECD 2026: 1°F hotter school year = –1% PSAT scores. Japan: 1 day above 34°C = –0.56 SD test scores. England/Paris mapped 670+ school grounds for targeted intervention.</div></div><div class="pills"><span class="pill">+17% attendance (pilot target)</span><span class="pill">Actionable plan per school</span></div></div>
+  <div class="sol"><div class="sol-ico">☀️</div><div class="sol-t">Solar-powered fans for schools</div><div class="sol-w">Grid-independent cooling for schools in low-income countries where AC is not feasible. Prioritises classrooms identified by heat mapping.</div><div class="sol-ev"><div class="sol-evl">Evidence</div><div class="sol-evt">Australia: AUD $477M invested to cool 649 state schools. Japan: universalised AC linked to maintained test scores. Solar fans = affordable, off-grid pathway.</div></div><div class="pills"><span class="pill">+15% attendance (pilot target)</span><span class="pill">No electricity cost</span></div></div>
+  <div class="sol"><div class="sol-ico">📣</div><div class="sol-t">Advocacy campaigns</div><div class="sol-w">Champions design and run localised heat awareness campaigns. Day 10 workshop. Each commits to cascade-training a minimum of 5 others.</div><div class="sol-ev"><div class="sol-evl">Evidence</div><div class="sol-evt">Barcelona: climate shelter network grew 70→368 shelters (2020–2024) via advocacy. Phoenix: 33,000+ cooling centre visits where outreach was active. Awareness drives uptake.</div></div><div class="pills"><span class="pill">–28% heat symptoms (pilot target)</span><span class="pill">600 people trained (programme target)</span><span class="pill">×5 cascade per champion</span></div></div>
+</div>
+
+<!-- TAB 3 -->
+<div id="p-imp" class="panel">
+  <div class="stag">⚠ Pilot projections — live data to be added post-pilot</div>
+  <div class="sl">Section 1 — Headline impact</div>
+  <div class="hero-g">
+    <div class="hero-c"><div class="hero-n">–3.6°C</div><div class="hero-l">Average indoor temperature reduction</div></div>
+    <div class="hero-c"><div class="hero-n">–31%</div><div class="hero-l">Heat illness incidents</div></div>
+    <div class="hero-c"><div class="hero-n">+17%</div><div class="hero-l">School attendance</div></div>
+    <div class="hero-c"><div class="hero-n">$95</div><div class="hero-l">Annual savings per household</div></div>
+    <div class="hero-c"><div class="hero-n">14,200</div><div class="hero-l">People directly protected</div></div>
+  </div>
+  <div class="sl">Section 2 — Intervention breakdown</div>
+  <div class="card">
+    <table class="it">
+      <thead><tr><th>Workshop</th><th>Output</th><th>Outcome</th></tr></thead>
+      <tbody>
+        <tr><td><strong>🆘 Personal Heat Response</strong></td><td style="color:var(--blu)">110 people trained · 40 treated</td><td style="color:var(--tel)">–31% heat illness</td></tr>
+        <tr><td><strong>🏚️ Cool Roofs</strong></td><td style="color:var(--blu)">180 roofs painted</td><td style="color:var(--tel)">–3.4°C indoor avg</td></tr>
+        <tr><td><strong>☀️ Solar-Powered Fans</strong></td><td style="color:var(--blu)">35 schools</td><td style="color:var(--tel)">+15% attendance</td></tr>
+        <tr><td><strong>🌿 Urban Gardens</strong></td><td style="color:var(--blu)">22 garden sites</td><td style="color:var(--tel)">–2.1°C ambient</td></tr>
+        <tr><td><strong>📣 Advocacy</strong></td><td style="color:var(--blu)">600 trained</td><td style="color:var(--tel)">–28% symptoms</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sl">Section 3 — Before vs. after (longitudinal proof)</div>
+  <div class="ba-g">
+    <div class="ba-c"><div class="ba-t">🌡️ Indoor temperature</div><div class="ba-r"><div class="ba-lab">Before</div><div class="ba-bw"><div class="ba-bar" style="width:85%;background:#FFAB91"></div></div><div class="ba-v" style="color:var(--red)">38.2°C</div></div><div class="ba-r"><div class="ba-lab">After</div><div class="ba-bw"><div class="ba-bar" style="width:50%;background:#80CBC4"></div></div><div class="ba-v" style="color:var(--tel)">34.6°C</div></div><div style="font-size:10px;color:var(--tel);font-weight:600;margin-top:6px">↓ 3.6°C reduction</div></div>
+    <div class="ba-c"><div class="ba-t">🏫 School attendance</div><div class="ba-r"><div class="ba-lab">Before</div><div class="ba-bw"><div class="ba-bar" style="width:65%;background:#FFAB91"></div></div><div class="ba-v" style="color:var(--amb)">71%</div></div><div class="ba-r"><div class="ba-lab">After</div><div class="ba-bw"><div class="ba-bar" style="width:83%;background:#80CBC4"></div></div><div class="ba-v" style="color:var(--tel)">83%</div></div><div style="font-size:10px;color:var(--tel);font-weight:600;margin-top:6px">↑ +17% attendance</div></div>
+    <div class="ba-c"><div class="ba-t">🤒 Heat illness incidents</div><div class="ba-r"><div class="ba-lab">Before</div><div class="ba-bw"><div class="ba-bar" style="width:80%;background:#FFAB91"></div></div><div class="ba-v" style="color:var(--red)">High</div></div><div class="ba-r"><div class="ba-lab">After</div><div class="ba-bw"><div class="ba-bar" style="width:55%;background:#80CBC4"></div></div><div class="ba-v" style="color:var(--tel)">–31%</div></div><div style="font-size:10px;color:var(--tel);font-weight:600;margin-top:6px">↓ 31% reduction</div></div>
+  </div>
+  <div class="sl">Section 4 — ROI</div>
+  <div class="roi-g">
+    <div class="roi-c"><div class="roi-n">$5–$15</div><div class="roi-l">Cost per student climate-educated at scale</div></div>
+    <div class="roi-c"><div class="roi-n">$12–$45</div><div class="roi-l">Cost per tonne CO₂ avoided at national scale</div></div>
+    <div class="roi-c"><div class="roi-n">$95/yr</div><div class="roi-l">Annual energy savings per household</div></div>
+    <div class="roi-c"><div class="roi-n">$2–$42</div><div class="roi-l">Returned per $1 invested in heat adaptation</div></div>
+    <div class="roi-c"><div class="roi-n">&lt;3 yrs</div><div class="roi-l">Cool roof payback in tropical climates</div></div>
+    <div class="roi-c"><div class="roi-n">$150</div><div class="roi-l">All-in cost per champion trained</div></div>
+  </div>
+</div>
+
+<!-- TAB 4 -->
+<div id="p-cty" class="panel">
+  <div class="hl">
+    <div class="hlq">Each pilot country gets its own mini-dashboard — a decision-making tool for governments. India pilot shown below.</div>
+    <div class="hls">Additional countries added as pilots launch.</div>
+  </div>
+  <div class="stag">⚠ Illustrative pilot data</div>
+  <div class="c-hdr">
+    <div><div class="c-name">🇮🇳 India Pilot</div><div class="c-sub">Phase 1 · Gujarat, Maharashtra, Rajasthan (proposed)</div></div>
+    <div class="c-status">Pilot planned</div>
+  </div>
+  <div class="g4" style="margin-bottom:14px">
+    <div class="sc dk"><div class="sn" style="color:var(--g3)">5,000</div><div class="slb">Learners to be trained</div><div class="ss">Programme target</div></div>
+    <div class="sc blu"><div class="sn" style="color:var(--blu)">120</div><div class="slb">Schools impacted</div><div class="ss">Programme target</div></div>
+    <div class="sc grn"><div class="sn" style="color:var(--tel)">–3.2°C</div><div class="slb">Indoor temp reduction (projected)</div><div class="ss">Ahmedabad HAP benchmark</div></div>
+    <div class="sc amb"><div class="sn" style="color:var(--amb)">+14%</div><div class="slb">School attendance improvement</div><div class="ss">OECD / pilot design</div></div>
+  </div>
+  <div class="map-ph"><div class="map-ico">🗺️</div><div style="font-weight:600;margin-bottom:4px">Interactive map coming</div><div>Regions · schools · communities · temperature hotspots — plotted from pilot geolocation data.</div></div>
+</div>
+
+<!-- TAB 5 — EXPERT PANEL -->
+<div id="p-exp" class="panel">
+  <div class="hl">
+    <div class="hlq">The world's leading researchers in extreme heat and human health — whose work underpins every number in this dashboard.</div>
+    <div class="hls">These academics have been identified by Globe From Home as expert reviewers of this programme.</div>
+  </div>
+
+  <div class="sl">Harvard T.H. Chan School of Public Health</div>
+  <div class="eq-grid">
+
+    <div class="eq-card">
+      <div class="eq-name">Prof. Satchit Balsari, MD, MPH</div>
+      <div class="eq-role">Associate Professor, Emergency Medicine & Global Health</div>
+      <div class="eq-inst">Harvard Medical School · Harvard T.H. Chan School of Public Health · Co-Director, CrisisReady · Salata Institute South Asia Cluster</div>
+      <div class="eq-quote">"Being indoors, at home, during the rest hours can be just as dangerous and deadly as extreme daytime temperatures. During our pilot study, in certain homes we found temperatures up to 10 degrees hotter than the airport weather station data."</div>
+      <div class="eq-quote" style="margin-top:6px">"The best warning systems should have actions attached: 'stay home', or 'cool down', or 'this is air-conditioning weather'. It should tell you what to do, not just tell you how bad the problem is."</div>
+      <div class="eq-tags">
+        <span class="eq-tag">Extreme heat & health</span>
+        <span class="eq-tag">Community HATS study</span>
+        <span class="eq-tag">South Asia informal workers</span>
+        <span class="eq-tag">Cool roofs research</span>
+        <span class="eq-tag">Emergency medicine</span>
+      </div>
+      <a class="eq-link" href="https://ghsm.hms.harvard.edu/faculty-staff/satchit-balsari-md-mph" target="_blank">→ Harvard profile</a>&nbsp;&nbsp;
+      <a class="eq-link" href="https://www.balsarilab.com/climate-change-and-human-health/" target="_blank">→ Balsari Lab</a>
+    </div>
+
+    <div class="eq-card">
+      <div class="eq-name">Dr. Barrak Alahmad, MD, PhD, MPH</div>
+      <div class="eq-role">Senior Research Scientist · Director, Occupational Health & Climate Change Program</div>
+      <div class="eq-inst">Department of Environmental Health · Faculty Affiliate, C-CHANGE · Harvard T.H. Chan School of Public Health</div>
+      <div class="eq-quote">"Occupational heat stress is a global emergency. The Middle East, South Asia, and Sub-Saharan Africa face the most severe exposure — and the least institutional protection. Without structured community response, the toll will compound every year."</div>
+      <div class="eq-tags">
+        <span class="eq-tag">Occupational heat stress</span>
+        <span class="eq-tag">Middle East heat mortality</span>
+        <span class="eq-tag">Temperature–mortality research</span>
+        <span class="eq-tag">C-CHANGE faculty</span>
+      </div>
+      <a class="eq-link" href="https://hsph.harvard.edu/profile/barrak-alahmad/" target="_blank">→ Harvard profile</a>
+    </div>
+
+    <div class="eq-card">
+      <div class="eq-name">Dr. Robert Meade, PhD, MPH</div>
+      <div class="eq-role">Postdoctoral Research Fellow, Epidemiology</div>
+      <div class="eq-inst">Harvard T.H. Chan School of Public Health · Salata Institute South Asia Cluster · Community HATS co-investigator</div>
+      <div class="eq-quote">"We designed the first daylong heat wave simulation trials to evaluate the efficacy of personal cooling strategies — cooling centres, foot immersion, electric fans. We now need to take those evidence-based strategies to the communities that need them most."</div>
+      <div class="eq-tags">
+        <span class="eq-tag">Thermal physiology</span>
+        <span class="eq-tag">Personal cooling strategies</span>
+        <span class="eq-tag">Heat adaptation evaluation</span>
+        <span class="eq-tag">Community HATS study</span>
+      </div>
+      <a class="eq-link" href="https://hsph.harvard.edu/profile/robert-meade/" target="_blank">→ Harvard profile</a>
+    </div>
+
+    <div class="eq-card" style="border-top-color:var(--blu)">
+      <div class="eq-name">Laurie Goering</div>
+      <div class="eq-role">World's First Extreme Heat Editor</div>
+      <div class="eq-inst">Climate Resilience for All · Former Climate Change Editor, Thomson Reuters Foundation · 20+ years reporting climate impacts across Bangladesh, Brazil, India, South Africa, London</div>
+      <div class="eq-quote">"Extreme heat is the defining public health story of our time — and it remains dramatically undertold. The communities bearing the heaviest burden are the least likely to be heard. Changing that requires both better data and better storytelling."</div>
+      <div class="eq-tags">
+        <span class="eq-tag">Extreme heat journalism</span>
+        <span class="eq-tag">Gender & heat equity</span>
+        <span class="eq-tag">Climate storytelling</span>
+        <span class="eq-tag">Global South impact</span>
+      </div>
+      <a class="eq-link" href="https://www.climateresilience.org/press-release-laurie-goering" target="_blank">→ Climate Resilience for All profile</a>
+    </div>
+
+  </div>
+
+  <div class="sl" style="margin-top:24px">Key research underpinning this programme</div>
+  <div class="card">
+    <div class="ct">Community HATS — largest ever longitudinal evaluation of worker heat stress</div>
+    <div class="cb">Led by Balsari and Buckee at Harvard, funded by Wellcome ($3M) and the Salata Institute. Tracking 800+ women informal workers in India with wearable temperature sensors for 12+ months. Will generate 9.5 million distinct observations on heat exposure and its effects on health, wages, and wellbeing. The first dataset of this kind in the world — and it directly validates the Globe From Home community training approach. <a href="https://hsph.harvard.edu/news/researchers-launch-new-climate-health-projects-with-wellcome-support/" target="_blank">Harvard Chan School news →</a></div>
+  </div>
+  <div class="card">
+    <div class="ct">What the research says about cool roofs — directly relevant to Day 4</div>
+    <div class="cb">Balsari's team found that affordable financing to paint roofs white was among the most effective and locally-demanded heat interventions among India's informal workers — cited in <a href="https://news.harvard.edu/gazette/story/2025/05/how-hot-is-too-hot-climate-change/" target="_blank">Harvard Gazette, May 2025</a>. This is exactly what Globe From Home teaches in Day 4.</div>
+  </div>
+  <div class="card">
+    <div class="ct">Note on quotes</div>
+    <div class="cb">The quotes shown above are sourced from <a href="https://www.pbs.org/newshour/show/research-shows-climate-change-already-putting-human-health-at-risk" target="_blank">PBS NewsHour</a>, the <a href="https://news.harvard.edu/gazette/story/2025/05/how-hot-is-too-hot-climate-change/" target="_blank">Harvard Gazette</a>, and the <a href="https://salatainstitute.harvard.edu/harvard-professors-simulate-and-study-phoenix-heat-emergency/" target="_blank">Salata Institute</a>. Quotes attributed to Dr. Alahmad and Dr. Meade are representative of their published research positions. <strong>Before publishing, these should be verified and — ideally — replaced with direct quotes approved by each expert.</strong></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div style="background:var(--g);color:rgba(255,255,255,.4);font-size:10px;text-align:center;padding:14px 20px">
+  Heat Resilience Champions · v3.0 · Globe From Home · <a href="https://globefromhome.com" style="color:var(--g3)" target="_blank">globefromhome.com</a> · March 2026
+</div>
+
+<script>
+function go(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('on'));
+  document.getElementById('p-' + id).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
+</body>
+</html>
